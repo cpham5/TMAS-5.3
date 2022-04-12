@@ -18,4 +18,9 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< Updated upstream:test/mohamed/mohamed/urls.py
+=======
+    path("accounts/", include("django.contrib.auth.urls")),
+    path('', include('tmasTest.urls')),
+>>>>>>> Stashed changes:mohamed/urls.py
 ]
