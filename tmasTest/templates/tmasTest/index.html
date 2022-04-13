@@ -34,11 +34,11 @@
     <form action="{% url 'add' %}" method="post" style="background-color:#FF7A59">
         {% csrf_token %}
         <h3 style="color:darkblue;">Add Story:</h3>
-        
 
-        Hi {{ user.username }}! <br/>
-        
-        <input type="hidden" name="user" value=user.username>
+        Hi {{ user.username }}!
+
+        <input type="hidden" name="user" value="<?=$user.username?>"/>
+
 
         <label>Date</label>
         <input type="text" name="date">
