@@ -10,3 +10,17 @@ class Tmas(models.Model):
     location = models.TextField()
 
 # Create your models here.
+
+class userQueue(models.Model):
+    storyID = models.TextField()
+    relation = models.TextField()
+    
+class userStoryOptions(models.Model):
+    storyID = models.TextField()
+    owner = models.TextField()
+    visibility = models.TextField()
+    #more options later
+    
+#edit later
+class userFriendsList(models.Model):
+    user = models.TextField()
