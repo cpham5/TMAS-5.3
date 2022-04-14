@@ -1,6 +1,7 @@
 from tmasTest.models import Tmas
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
+# from django.contrib.auth.models import StoryID
 
 # Create your tests here.
 
@@ -48,4 +49,11 @@ class LoginTestCase(TestCase):
         logged_in = c.login(username='chris', password='ILoveCMSC447')
         self.assertTrue(logged_in)
         
-        
+
+# Create your tests here.
+# class StoryIDTestCase(TestCase):
+	#tests a randomized story ID
+	#def test_storyid(self):
+	   # randID = random.randint(0,1000000)
+	   # storyID = StoryID.objects.create(storyID='randID')      
+
