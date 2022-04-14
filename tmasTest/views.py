@@ -17,7 +17,10 @@ def add(request):
     date = request.POST['date']
     story = request.POST['story']
     storyID = request.POST['storyID']
-    user = request.POST['user']
+    if request.user.is_authenticated:
+        user = request.user.get_username()
+    else:
+        user = "guest user"
     location = request.POST['location']
     community = request.POST['community']
     story = Tmas(subject=subject, date=date, story=story, storyID=storyID, user=user, location=location,
