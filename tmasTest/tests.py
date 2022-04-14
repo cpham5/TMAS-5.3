@@ -31,20 +31,24 @@ class TmasTestCase(TestCase):
 
 # Create your tests here.
 class LoginTestCase(TestCase):
-    #tests if a user can login
+    #tests if a user can log in using the login page
     def test_login(self):
+        # creates a test user using the user class
         user = User.objects.create(username='testuser')
         user.set_password('12345')
         user.save()
 
-        c = Client()
-        logged_in = c.login(username='testuser', password='12345')
-        self.assertTrue(logged_in)
+        #login to login page using POST
+        response = self.client.post('/accounts/login/',{'username':'testuser','password':'12345'}, follow=True)
+        self.assertTrue(response.context['user'].is_active)
         
+    #creates an account using the account creation page and logs in in using that account
     def test_create_account(self):
+        #creates accounts using account creation page
         c = Client()
         response = c.post('/accounts/signup/', {'username': 'chris', 'password1': 'ILoveCMSC447', 'password2': 'ILoveCMSC447'})
-    
+
+        #logs in using Client's login function
         logged_in = c.login(username='chris', password='ILoveCMSC447')
         self.assertTrue(logged_in)
         
