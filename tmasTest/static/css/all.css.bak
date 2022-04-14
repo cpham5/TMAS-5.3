@@ -15,7 +15,7 @@ background-color: #DBF9FC;
   width: 20%;
 }
 
-#viewStoriesOlContainer {
+.viewStoriesOlContainer {
 	list-style-type = none;
 }
 

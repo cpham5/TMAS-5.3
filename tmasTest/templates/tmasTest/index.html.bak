@@ -31,13 +31,8 @@
     <form action="{% url 'add' %}" method="post" style="background-color:#FF7A59">
         {% csrf_token %}
         <h3 style="color:darkblue;">Add Story:</h3>
-
-        {% if user.is_authenticated %}
-            <label>User {{user.username}}</label><br/>
-        {% else %}
-            <label>User guest</label><br/>
-        {% endif %}
-
+        <label>User</label>
+        <input type="text" name="user"> <br/>
         <label>Date</label>
         <input type="text" name="date">
         <label>Location</label>
@@ -55,7 +50,7 @@
         <input type="Submit" class="center2"> <br/>
     </form>
     <p>
-        <h3 style="color:darkblue;">View Stories:</h3>
+        <h3 style="color:darkblue;">View Other Stories:</h3>
         <ol>
             {% for story in stories %}
 			<li style="list-style-type: none;">
@@ -89,11 +84,6 @@
     </p> <br/>
 </div>
 
-{% if user.is_authenticated %}
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-  <a href="{% url 'login' %}">Log In</a>
-{% endif %}
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
