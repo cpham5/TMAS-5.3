@@ -1,4 +1,4 @@
-Authors: Chris Pham, Mohamed Abdelhameed, Gloria Adetobi-Folawiyo, Suprina Pradhan
+Authors: Mohamed Abdelhameed, Gloria Adetobi-Folawiyo, Chris Pham, Suprina Pradhan
 Iteration 2 Release
 
 Requirments to run application:

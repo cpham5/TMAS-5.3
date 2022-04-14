@@ -5,20 +5,25 @@
 
 <h1 style="color:darkblue;">Login</h1>
 
+<!-- form for logging in-->
 <form method="post" style="background-color:#FF7A59">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Log In</button>
 </form>
+
+<!-- Button that redirects to account creation page -->
 <a href="/accounts/signup">
   <button>Create an account</button>
 </a>
+
+<!-- Button that redirects without logging in-->
 <a href="/">
   <button>Continue as Guest</button>
 </a>
-<!---
+<!-- disabled out for now
 <a href="/accounts/password_reset">
   <button>Reset Password</button>
 </a>
---->
+-->
 {% endblock %}

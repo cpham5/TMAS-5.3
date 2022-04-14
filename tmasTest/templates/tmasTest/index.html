@@ -41,6 +41,7 @@
         {% csrf_token %}
         <h3 style="color:darkblue;">Add Story:</h3>
 
+        <!-- greets user with their username if they are logged in; otherwise greet them with guest-->
         {% if user.is_authenticated %}
             <label>User {{user.username}}</label><br/>
         {% else %}
