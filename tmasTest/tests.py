@@ -12,6 +12,7 @@ class TmasTestCase(TestCase):
     #Test retreving data from database
     def test1(self):
         try:
+            flag = 0
             story = self.foo = Tmas.objects.get(storyID="01234")
             if story.date == "4/13/2022":
                 if story.subject == "story added from test":
@@ -19,8 +20,9 @@ class TmasTestCase(TestCase):
                         if story.user == "Moe":
                             if story.location == "UMBC":
                                 if story.community == "TMAS":
+                                    flag = 1
                                     print("***PASS***")
-            else:
+            if(flag == 0):
                 print("***FAILED***")
         except Tmas.DoesNotExist:
             print("***FAILED***")
