@@ -31,12 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-<<<<<<< HEAD
     'accounts',
     'tmasTest',
-=======
-    'tmasTest.apps.TmastestConfig',
->>>>>>> develop
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
