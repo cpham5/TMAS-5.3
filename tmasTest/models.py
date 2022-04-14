@@ -1,5 +1,6 @@
 from django.db import models
 
+#Create story model for storing storyobjects
 class Tmas(models.Model):
     subject = models.TextField()
     date = models.TextField()
@@ -9,4 +10,4 @@ class Tmas(models.Model):
     storyID = models.TextField()
     location = models.TextField()
 
-# Create your models here.
+
