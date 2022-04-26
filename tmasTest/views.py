@@ -43,3 +43,13 @@ def add(request):
                  community=community)
     story.save()
     return HttpResponseRedirect(reverse('index'))
+    
+def edit(request, storyID):
+    #return HttpResponse(storyID)
+    
+    # get story with the requested storyID to edit
+    story = Tmas.objects.get(storyID=storyID)
+    
+    # render template and send story to edit template
+    return render(request, 'edit.html', {'story': story})
+    
