@@ -29,9 +29,19 @@
     height="200px" class="center"/> <br/>
 
     {% if user.is_authenticated %}
-    <p><a href="{% url 'logout' %}">Log Out</a></p>
+    <a href="{% url 'logout' %}">
+        <button>Log Out</button>
+    </a>
     {% else %}
-    <a href="{% url 'login' %}">Log In</a>
+    <a href="{% url 'login' %}">
+        <button>Log In</button>
+    </a>
+    {% endif %}
+
+    {% if user.is_superuser %}
+   <a href="{% url 'adminPage' %}">
+        <button>Admin Console</button>
+    </a>
     {% endif %}
 
     <!-- Story addition section -->

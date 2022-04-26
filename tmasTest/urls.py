@@ -7,4 +7,7 @@ urlpatterns = [
     path('add/', views.add, name='add'), #Add add, story addition form, to urlpatterns
     path('edit<int:storyID>', views.edit, name='edit'), # add edit, edit story page, to url patterns
     path('editstory<int:storyID>', views.editReplace, name='editReplace'), # add editReplace, edit story form, to urlpatterns
+    path('adminPage/', views.adminPage, name='adminPage'),
+    path('admin/', views.admin, name='admin'),
+    path('delete/', views.delete, name='delete'),
 ]
