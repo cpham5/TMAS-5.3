@@ -23,11 +23,20 @@ class TmasTestCase(TestCase):
                             if story.location == "UMBC":
                                 if story.community == "TMAS":
                                     flag = 1
-                                    print("***PASS***")
+                                    print("Story Addition: PASSED")
             if(flag == 0):
-                print("***FAILED***")
+                print("Story Addition: FAILED")
         except Tmas.DoesNotExist:
-            print("***FAILED***")
+            print("Story Addition: FAILED")
+
+    def test2(self):
+        story = self.foo = Tmas.objects.get(storyID="01234")
+        story.delete()
+        try:
+            deleted = self.foo = Tmas.objects.get(storyID="01234")
+            print("Story Removal: FAILED")
+        except Tmas.DoesNotExist:
+            print("Story Removal: PASSED")
 
 
 # Create your tests here.
