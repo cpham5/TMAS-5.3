@@ -3,14 +3,16 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post" style="background-color:#FF7A59">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
-  <a href="/accounts/login">
-    <button>Back to login</button>
-  </a>
+  <h2 style="color:darkblue;">Sign up</h2>
+  <div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+    <form method="post" style="background-color:#FF7A59">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Sign Up</button>
+    </form>
+    <a href="/accounts/login">
+      <button>Back to login</button>
+    </a>
+  </div>
 
 {% endblock %}

@@ -74,3 +74,10 @@ def editReplace(request, storyID):
                  community=community)
     newStory.save()
     return HttpResponseRedirect(reverse('index'))
+
+def deleteStory(request, storyID):
+    # get story with the requested storyID
+    story = Tmas.objects.get(storyID=storyID)
+    #deletes story
+    story.delete()
+    return HttpResponseRedirect(reverse('index'))

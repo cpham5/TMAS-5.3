@@ -2,27 +2,64 @@
 
 {% block content %}
 
-<!-- Create form for editing the location, date, subject line, and story -->
 
-    <form action="{% url 'editReplace' storyID=story.storyID %}" method="post" style="background-color:#FF7A59">
-        {% csrf_token %}
-        <h3 style="color:darkblue;">Edit Story:</h3>
-        <label>Date</label>
-        <input type="text" value="{{story.date}}" name="date">
-        <label>Location</label>
-        <input type="text" value="{{story.location}}" name="location">
-        <label>Community</label>
-        <input type="text" value="{{story.community}}" name="community">
-        <label>Story ID</label> 
-        <label>{{story.storyID}}</label><br/>
-        <label>Subject</label>
-        <textarea rows="1" cols="100" name="subject"> {{story.subject}}
-        </textarea> <br/>
-        <label>Story</label>
-        <textarea rows="5" cols="120" name="story"> {{story.story}}
-        </textarea> <br/>
-        <input type="Submit" class="center2"><br/>
-    </form>
+<h3 style="color:darkblue;">Edit Story:</h3>
+<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+    {% if user.is_authenticated and story.user == user.username%}
+        <!-- Create form for editing the location, date, subject line, and story -->    
+        <form action="{% url 'editReplace' storyID=story.storyID %}" method="post" style="background-color:#FF7A59">
+            {% csrf_token %}
+            
+            <label>Date</label>
+            <input type="text" value="{{story.date}}" name="date">
+            <label>Location</label>
+            <input type="text" value="{{story.location}}" name="location">
+            <label>Community</label>
+            <input type="text" value="{{story.community}}" name="community">
+            <label>Story ID</label> 
+            <label>{{story.storyID}}</label><br/>
+            <label>Subject</label>
+            <textarea rows="1" cols="100" name="subject"> {{story.subject}}
+            </textarea> <br/>
+            <label>Story</label>
+            <textarea rows="5" cols="120" name="story"> {{story.story}}
+            </textarea> <br/>
+            <input type="Submit" class="center2"><br/>
+        </form>
 
+    <!--user is an admin; should only be able to view or delete stories, not edit them-->    
+    {%else%}
+        <li style="list-style-type: none;">
+            <div style = "font-size: 16pt; width: 250px">
+                {{story.user}}
+            </div>
+                
+            <div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+                {{story.date}}
+            </div>
+
+            <div style = "margin-top: 20px; margin-bottom: 3px;">
+                {{story.subject}}
+            </div>
+
+            <div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+                <div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+                {{story.story}}
+                </div>
+            </div>
+
+            <div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
+                {{story.location}} | {{story.community}}
+            </div>
+        
+    {%endif%}
+
+    {% if user.is_authenticated and story.user == user.username or user.is_superuser%}
+        <form action="{% url 'deleteStory' storyID=story.storyID %}" method="post" style="background-color:#FF7A59">
+            {% csrf_token %}
+            <button type="Submit" action="{% url 'deleteStory' storyID=story.storyID %}">Delete</button>
+        </form>
+    {%endif%}
+</div>
 
 {% endblock %}
