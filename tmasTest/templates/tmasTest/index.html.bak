@@ -24,15 +24,30 @@
 <body>
 
 <div class="container">
+    <!-- Display image on top of the page -->
     <img src ="https://images.squarespace-cdn.com/content/v1/5e9de4d1193113497eed5fdc/1603748673433-AQP9VS0JKNS8WLDS8A5W/Tell+Your+Story+Official+Logo+Oct+20-01.png?format=1500w"
     height="200px" class="center"/> <br/>
+
+    {% if user.is_authenticated %}
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+    {% else %}
+    <a href="{% url 'login' %}">Log In</a>
+    {% endif %}
+
+    <!-- Story addition section -->
     <h1 style="color:darkblue;">Add/View Stories</h1>
-    *Add introduction* <br/>
+    <!-- Form for adding story -->
     <form action="{% url 'add' %}" method="post" style="background-color:#FF7A59">
         {% csrf_token %}
         <h3 style="color:darkblue;">Add Story:</h3>
-        <label>User</label>
-        <input type="text" name="user"> <br/>
+
+        <!-- greets user with their username if they are logged in; otherwise greet them with guest-->
+        {% if user.is_authenticated %}
+            <label>User {{user.username}}</label><br/>
+        {% else %}
+            <label>User guest</label><br/>
+        {% endif %}
+
         <label>Date</label>
         <input type="text" name="date">
         <label>Location</label>
@@ -50,48 +65,80 @@
         <input type="Submit" class="center2"> <br/>
     </form>
     <p>
-        <h3 style="color:darkblue;">View Other Stories:</h3>
+    <!-- Story view section -->
+        <h3 style="color:darkblue;">View Stories:</h3>
+    <!-- loop stories and write to page -->
         <ol>
             {% for story in stories %}
-			<li style="list-style-type: none;">
-			<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
-                <div style = "font-size: 16pt; width: 250px">
-					{{story.user}}
-				</div>
+				{% if user.is_authenticated and story.user == user.username %}
+			
+					<li style="list-style-type: none;">
+						<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+							<div style = "font-size: 16pt; width: 250px">
+								{{story.user}}
+							</div>
 				
-				<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
-					{{story.date}}
-				</div>
+							<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+								{{story.date}}
+							</div>
 				
-				<div style = "margin-top: 20px; margin-bottom: 3px;">
-					{{story.subject}}
-				</div>
+							<div style = "margin-top: 20px; margin-bottom: 3px;">
+								{{story.subject}}
+							</div>
 				
-				<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
-					<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
-					{{story.story}}
+							<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+								<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+								{{story.story}}
+								</div>
+							</div>
+				
+							<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
+								{{story.location}} | {{story.community}}
+							</div>
+				
+							<div>
+								<a href = "{% url 'edit' storyID=story.storyID %}"> Edit Story </a>
+								
+							</div>
+				{% else %}
+									<li style="list-style-type: none;">
+						<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+							<div style = "font-size: 16pt; width: 250px">
+								{{story.user}}
+							</div>
+				
+							<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+								{{story.date}}
+							</div>
+				
+							<div style = "margin-top: 20px; margin-bottom: 3px;">
+								{{story.subject}}
+							</div>
+				
+							<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+								<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+								{{story.story}}
+								</div>
+							</div>
+				
+							<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
+								{{story.location}} | {{story.community}}
+							</div>
+		
+				{% endif %} 
+			{% endfor %}
 					</div>
-				</div>
-				
-				<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
-					{{story.location}} | {{story.community}}
-				</div>
- 
-            {% endfor %}
-			</div>
 			</li>
         </ol>
     </p> <br/>
 </div>
 
-
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
+<!-- Footer -->
 <footer>
-  <p class="center2">Author: Mohamed Abdelhameed --
-    CMSC447 <br/> Tell Me A Story 5.30
-    Notes: Iteration 2 Test.
-  <a href="mailto:hege@example.com">mabdelh1@umbc.com</a></p> <br/>
+  <p class="center2">CMSC447 <br/> Tell Me A Story 5.30
+    - Iteration 2. <br/>
 </footer>
 </html>

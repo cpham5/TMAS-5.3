@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Create form for editing the location, date, subject line, and story -->
+
+    <form action="{% url 'editReplace' storyID=story.storyID %}" method="post" style="background-color:#FF7A59">
+        {% csrf_token %}
+        <h3 style="color:darkblue;">Edit Story:</h3>
+        <label>Date</label>
+        <input type="text" value="{{story.date}}" name="date">
+        <label>Location</label>
+        <input type="text" value="{{story.location}}" name="location">
+        <label>Community</label>
+        <input type="text" value="{{story.community}}" name="community">
+        <label>Story ID</label> 
+        <label>{{story.storyID}}</label><br/>
+        <label>Subject</label>
+        <textarea rows="1" cols="100" name="subject"> {{story.subject}}
+        </textarea> <br/>
+        <label>Story</label>
+        <textarea rows="5" cols="120" name="story"> {{story.story}}
+        </textarea> <br/>
+        <input type="Submit" class="center2"><br/>
+    </form>
+
+
+{% endblock %}
