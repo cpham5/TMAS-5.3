@@ -70,32 +70,64 @@
     <!-- loop stories and write to page -->
         <ol>
             {% for story in stories %}
-			<li style="list-style-type: none;">
-			<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
-                <div style = "font-size: 16pt; width: 250px">
-					{{story.user}}
-				</div>
+				{% if user.is_authenticated and story.user == user.username %}
+			
+					<li style="list-style-type: none;">
+						<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+							<div style = "font-size: 16pt; width: 250px">
+								{{story.user}}
+							</div>
 				
-				<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
-					{{story.date}}
-				</div>
+							<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+								{{story.date}}
+							</div>
 				
-				<div style = "margin-top: 20px; margin-bottom: 3px;">
-					{{story.subject}}
-				</div>
+							<div style = "margin-top: 20px; margin-bottom: 3px;">
+								{{story.subject}}
+							</div>
 				
-				<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
-					<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
-					{{story.story}}
+							<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+								<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+								{{story.story}}
+								</div>
+							</div>
+				
+							<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
+								{{story.location}} | {{story.community}}
+							</div>
+				
+							<div>
+								<a href = "{% url 'edit' storyID=story.storyID %}"> Edit Story </a>
+								
+							</div>
+				{% else %}
+									<li style="list-style-type: none;">
+						<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+							<div style = "font-size: 16pt; width: 250px">
+								{{story.user}}
+							</div>
+				
+							<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+								{{story.date}}
+							</div>
+				
+							<div style = "margin-top: 20px; margin-bottom: 3px;">
+								{{story.subject}}
+							</div>
+				
+							<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+								<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+								{{story.story}}
+								</div>
+							</div>
+				
+							<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
+								{{story.location}} | {{story.community}}
+							</div>
+		
+				{% endif %} 
+			{% endfor %}
 					</div>
-				</div>
-				
-				<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
-					{{story.location}} | {{story.community}}
-				</div>
- 
-            {% endfor %}
-			</div>
 			</li>
         </ol>
     </p> <br/>

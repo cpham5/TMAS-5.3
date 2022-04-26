@@ -69,7 +69,6 @@ def editReplace(request, storyID):
     storyID = storyID
     location = request.POST['location']
     community = request.POST['community']
-    user = request.user.get_username()
     newStory = Tmas(subject=subject, date=date, story=story, storyID=storyID, user=user, location=location,
                  community=community)
     newStory.save()
