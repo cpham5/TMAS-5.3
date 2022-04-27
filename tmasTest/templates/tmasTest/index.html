@@ -16,10 +16,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
 
-
-    </style>
 </head>
 <body>
 
@@ -47,97 +44,71 @@
     <!-- Story addition section -->
     <h1 style="color:darkblue;">Add/View Stories</h1>
     <!-- Form for adding story -->
-    <form action="{% url 'add' %}" method="post" style="background-color:#FF7A59">
-        {% csrf_token %}
-        <h3 style="color:darkblue;">Add Story:</h3>
+    <div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+        <form action="{% url 'add' %}" method="post" style="background-color:#FF7A59">
+            {% csrf_token %}
+            <h3 style="color:darkblue;">Add Story:</h3>
 
-        <!-- greets user with their username if they are logged in; otherwise greet them with guest-->
-        {% if user.is_authenticated %}
-            <label>User {{user.username}}</label><br/>
-        {% else %}
-            <label>User guest</label><br/>
-        {% endif %}
-
-        <label>Date</label>
-        <input type="text" name="date">
-        <label>Location</label>
-        <input type="text" name="location">
-        <label>Community</label>
-        <input type="text" name="community">
-        <label>Story ID</label>
-        <input type="text" name="storyID"> <br/>
-        <label>Subject</label>
-        <textarea rows="1" cols="120" name="subject">
-        </textarea> <br/>
-        <label>Story</label>
-        <textarea rows="5" cols="120" name="story">
-        </textarea> <br/>
-        <input type="Submit" class="center2"> <br/>
-    </form>
+            <!-- greets user with their username if they are logged in; otherwise greet them with guest-->
+            {% if user.is_authenticated %}
+                <label>User {{user.username}}</label><br/>
+            {% else %}
+                <label>User guest</label><br/>
+            {% endif %}
+            <label>Date</label>
+            <input type="text" name="date">
+            <label>Location</label>
+            <input type="text" name="location">
+            <label>Community</label>
+            <input type="text" name="community">
+            <label>Story ID</label>
+            <input type="text" name="storyID"> <br/>
+            <label>Subject</label>
+            <textarea rows="1" cols="120" name="subject">
+            </textarea> <br/>
+            <label>Story</label>
+            <textarea rows="5" cols="120" name="story">
+            </textarea> <br/>
+            <input type="Submit" class="center2"> <br/>
+        </form>
+    </div>
     <p>
     <!-- Story view section -->
         <h3 style="color:darkblue;">View Stories:</h3>
     <!-- loop stories and write to page -->
         <ol>
             {% for story in stories %}
-				{% if user.is_authenticated and story.user == user.username %}
-			
-					<li style="list-style-type: none;">
-						<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
-							<div style = "font-size: 16pt; width: 250px">
-								{{story.user}}
-							</div>
-				
-							<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
-								{{story.date}}
-							</div>
-				
-							<div style = "margin-top: 20px; margin-bottom: 3px;">
-								{{story.subject}}
-							</div>
-				
-							<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
-								<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
-								{{story.story}}
-								</div>
-							</div>
-				
-							<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
-								{{story.location}} | {{story.community}}
-							</div>
-				
-							<div>
-								<a href = "{% url 'edit' storyID=story.storyID %}"> Edit Story </a>
-								
-							</div>
-				{% else %}
-									<li style="list-style-type: none;">
-						<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
-							<div style = "font-size: 16pt; width: 250px">
-								{{story.user}}
-							</div>
-				
-							<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
-								{{story.date}}
-							</div>
-				
-							<div style = "margin-top: 20px; margin-bottom: 3px;">
-								{{story.subject}}
-							</div>
-				
-							<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
-								<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
-								{{story.story}}
-								</div>
-							</div>
-				
-							<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
-								{{story.location}} | {{story.community}}
-							</div>
-		
-				{% endif %} 
+            <li style="list-style-type: none;">
+                <div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+                    <div style = "font-size: 16pt; width: 250px">
+                        {{story.user}}
+                    </div>
+        
+                    <div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+                        {{story.date}}
+                    </div>
+        
+                    <div style = "margin-top: 20px; margin-bottom: 3px;">
+                        {{story.subject}}
+                    </div>
+        
+                    <div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+                        <div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+                        {{story.story}}
+                        </div>
+                    </div>
+        
+                    <div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
+                        {{story.location}} | {{story.community}}
+                    </div>
+                    {% if user.is_authenticated and story.user == user.username or user.is_superuser%}
+                        <div>
+                            <a href = "{% url 'edit' storyID=story.storyID %}"> Edit Story </a>
+                        </div>
+                    {% endif %} 
+                </div>
 			{% endfor %}
-					</div>
+			
 			</li>
         </ol>
     </p> <br/>

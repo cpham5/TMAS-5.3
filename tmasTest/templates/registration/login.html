@@ -6,11 +6,12 @@
 <h1 style="color:darkblue;">Login</h1>
 
 <!-- form for logging in-->
-<form method="post" style="background-color:#FF7A59">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
+  <form method="post" style="background-color:#FF7A59">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+  </form>
 
 <!-- Button that redirects to account creation page -->
 <a href="/accounts/signup">
@@ -26,4 +27,5 @@
   <button>Reset Password</button>
 </a>
 -->
+</div>
 {% endblock %}

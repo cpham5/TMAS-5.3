@@ -75,6 +75,13 @@ def editReplace(request, storyID):
     newStory.save()
     return HttpResponseRedirect(reverse('index'))
 
+def deleteStory(request, storyID):
+    # get story with the requested storyID
+    story = Tmas.objects.get(storyID=storyID)
+    #deletes story
+    story.delete()
+    return HttpResponseRedirect(reverse('index'))
+    
 def adminPage(request):
     stories = Tmas.objects.filter()
     context = {
