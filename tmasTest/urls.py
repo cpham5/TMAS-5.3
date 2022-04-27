@@ -8,4 +8,8 @@ urlpatterns = [
     path('addStory/', views.addStory, name='addStory'), #Add add, story addition page, to urlpatterns
     path('edit<int:storyID>', views.edit, name='edit'), # add edit, edit story page, to url patterns
     path('editstory<int:storyID>', views.editReplace, name='editReplace'), # add editReplace, edit story form, to urlpatterns
+    path('deleteStory<int:storyID>', views.deleteStory, name='deleteStory'),
+    path('adminPage/', views.adminPage, name='adminPage'),
+    path('admin/', views.admin, name='admin'),
+    path('delete/', views.delete, name='delete'),
 ]
