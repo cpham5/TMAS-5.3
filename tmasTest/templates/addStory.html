@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Form for adding a new story goes here -->
+
+<div class="container-fluid">
+
+	<div>
+		<h3 style="color: rgba(53, 58, 71);" class="display-6">Add Story</h3>
+	</div>
+
+    <!-- Form for adding story -->
+	<div class="formCss">
+
+    <form action="{% url 'add' %}" method="post" class = "row g-3">
+        {% csrf_token %}
+
+		<div class="row g-2">
+			<div class="col-md-2">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingInputGrid" placeholder="Enter Date" name="date">
+					<label for="floatingInputGrid">Date</label>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingInputGrid" placeholder="Enter Location" name="location">
+					<label for="floatingInputGrid">Location</label>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="form-floating">
+				    <select id="floatingSelectGrid" class="form-select" aria-label="Floating label select example" name="community">
+						<option selected>...<option>
+						<option>College</option>
+						<option>Engineering</option>
+						<option>CMPE 447</option>
+					</select>
+					<label for="floatingSelectGrid">Community</label>
+			</div>
+		</div>
+		
+		 <div class="col-md-12">
+			<div class="form-floating">
+				<input type="text" class="form-control" id="floatingInputGrid" placeholder="Story ID" name="storyID">
+				<label for="floatingInputGrid">Story ID</label> 
+			</div>
+		</div>
+		
+		<div class="col-md-12">
+			<div class="form-floating">
+				<input type="text" class="form-control" id="floatingInputGrid" placeholder="Write your story here" name="subject">
+				<label for="floatingInputGrid">Subject</label>
+			</div>
+		</div>
+		
+		<div class="col-md-12">
+			<div class="form-floating">
+				<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px" name="story"></textarea>
+				<label for="floatingTextarea">Story</label>
+			</div>
+		</div>
+		
+		<div class="col-md-2">
+			<button type="Submit" class="btn btn-outline-light">Add Story<br/>
+		</div>
+		</div>
+    </form>
+
+</div>
+{% endblock %}

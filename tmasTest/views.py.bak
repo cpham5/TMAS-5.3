@@ -46,7 +46,7 @@ def add(request):
     
 def addStory(request):
     # not sure if this does anything other than direct the user to the addStory.html page
-    return render(request, 'addStory.html')
+return render(request, 'addStory.html')
     
 def edit(request, storyID):
     
@@ -54,7 +54,7 @@ def edit(request, storyID):
     story = Tmas.objects.get(storyID=storyID)
     
     # render template and send story to edit template
-    return render(request, 'edit.html', {'story': story})
+return render(request, 'edit.html', {'story': story})
     
 
 # use with form to edit and replace a story
