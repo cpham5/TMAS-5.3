@@ -108,3 +108,24 @@ def delete(request):
     deleted.delete()
     return HttpResponseRedirect(reverse('adminPage'))
 
+def settingsPage(request):
+    name1 = request.user.first_name
+    name2 = request.user.last_name
+    email = request.user.email
+    context = {
+        "name1":name1,
+        "name2":name2,
+        "email":email,
+    }
+    
+    return render(request, "registration/settingsPage.html",context=context)
+
+def changeSettings(request):
+    request.user.first_name = request.POST.get('newName1', "")
+    request.user.last_name = request.POST.get('newName2', "")
+    request.user.email = request.POST.get('newEmail', "")
+    request.user.save()
+    return HttpResponseRedirect(reverse('settingsPage'))
+    
+    
+
