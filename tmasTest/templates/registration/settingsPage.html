@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+
+	<div>
+		<h3 style="color: rgba(53, 58, 71);" class="display-6">Settings</h3>
+	</div>
+
+    <!-- Form for adding story -->
+	<div class="formCss">
+
+    <form action="{% url 'changeSettings' %}" method="post" class = "row g-3">
+        {% csrf_token %}
+		<div class="row g-2">
+			<div class="col-md-6">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingInputGrid" placeholder="Enter First Name" name="newName1" value={{name1}}>
+					<label for="floatingInputGrid">First Name</label>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingInputGrid" placeholder="Cnter Last Name" name="newName2" value={{name2}}>
+					<label for="floatingInputGrid">Last Name</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<div class="form-floating">
+				<input type="text" class="form-control" id="floatingInputGrid" placeholder="Enter email" name="newEmail" value={{email}}>
+				<label for="floatingInputGrid">E-mail</label> 
+			</div>
+		</div>
+		
+		<div class="col-md-3">
+			<button type="Submit" class="btn btn-outline-light">Apply Changes<br/>
+		</div>
+		<div class="col-md-2">
+			<a href={% url 'index' %} style="text-decoration: none;">
+				<button class="btn btn-outline-light">Cancel<br/>
+			</a>
+		</div>
+    </form>
+
+</div>
+
+{% endblock %}

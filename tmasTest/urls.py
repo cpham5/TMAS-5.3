@@ -12,4 +12,6 @@ urlpatterns = [
     path('adminPage/', views.adminPage, name='adminPage'),
     path('admin/', views.admin, name='admin'),
     path('delete/', views.delete, name='delete'),
+    path('settingsPage/', views.settingsPage, name='settingsPage'),
+    path('changeSettings/', views.changeSettings, name='changeSettings'),
 ]
