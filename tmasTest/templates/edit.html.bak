@@ -62,19 +62,9 @@
 		</div>
 		
 		<div class="col-md-2">
-			<button type="Submit" class="btn btn-outline-light">Edit Story<br/>
+			<button type="Submit" class="btn btn-outline-light">Create Story<br/>
 		</div>
-        {% if user.is_authenticated and story.user == user.username or user.is_superuser%}
-        <div class="col-md-2">
-            <button type="Submit" formaction="{% url 'deleteStory' storyID=story.storyID %}" class="btn btn-outline-light">Delete</button>
-        </div> 
-        {%endif%}
     </form>
 </div>
 </div>
-
-
-    
-
-
 {% endblock %}

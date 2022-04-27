@@ -6,7 +6,7 @@
     {% if user.is_authenticated %}
         <label>Welcome {{user.username}}!</label><br/>
     {% else %}
-         <label>Welcome guest!</label><br/>
+         <label>User guest</label><br/>
     {% endif %}
 
 

@@ -46,7 +46,7 @@ def add(request):
     
 def addStory(request):
     # not sure if this does anything other than direct the user to the addStory.html page
-    return render(request, 'addStory.html')
+return render(request, 'addStory.html')
     
 def edit(request, storyID):
     
@@ -54,7 +54,7 @@ def edit(request, storyID):
     story = Tmas.objects.get(storyID=storyID)
     
     # render template and send story to edit template
-    return render(request, 'edit.html', {'story': story})
+return render(request, 'edit.html', {'story': story})
     
 
 # use with form to edit and replace a story
@@ -78,33 +78,3 @@ def editReplace(request, storyID):
                  community=community)
     newStory.save()
     return HttpResponseRedirect(reverse('index'))
-
-def deleteStory(request, storyID):
-    # get story with the requested storyID
-    story = Tmas.objects.get(storyID=storyID)
-    #deletes story
-    story.delete()
-    return HttpResponseRedirect(reverse('index'))
-    
-def adminPage(request):
-    stories = Tmas.objects.filter()
-    context = {
-        'stories': stories,
-    }
-    return render(request, "admin/adminPage.html", context=context)
-
-
-def admin(request):
-    return render(request, "admin.html")
-
-
-def delete(request):
-    stories = Tmas.objects.filter()
-    context = {
-        'stories': stories,
-    }
-    storyD = request.POST['storyD']
-    deleted = Tmas.objects.get(storyID=storyD)
-    deleted.delete()
-    return HttpResponseRedirect(reverse('adminPage'))
-
