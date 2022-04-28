@@ -5,8 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
 from tmasTest.models import Tmas
 
-#import random
-#import sqlite3
+import random
 
 def index(request):
     stories = Tmas.objects.filter()
@@ -19,19 +18,21 @@ def add(request):
     subject = request.POST['subject']
     date = request.POST['date']
     story = request.POST['story']
-    storyID = request.POST['storyID']
-#randID = random.randint(0,1000000)
-#conn = sqlite3.connect(djano.db')
-#cursor = conn.cursor()
-#data=cursor.execute('''SELECT storyID FROM Tmas''')
-#currentStoryIds = []
-#    for id in data
-#	currentstoryIDs.append(id) 	
-#    while randID in currentStoryIds
-#	randID = random.randint(0, 1000000)
-#    storyID = randID
-#    conn.commit()
-#    conn.close()
+    #storyID = request.POST['storyID']
+
+    # generate random, unique story id
+    currentstoryID = []
+    
+    stories = Tmas.objects.filter()
+    for storyObj in stories:
+        currentstoryID.append(getattr(storyObj, 'storyID'))
+        
+    randID = random.randint(0,1000000)
+    while randID in currentstoryID:
+        randID = random.randint(0,1000000)
+        
+    storyID = randID
+    
 
     if request.user.is_authenticated:
         user = request.user.get_username()

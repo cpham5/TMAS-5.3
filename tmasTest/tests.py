@@ -64,9 +64,11 @@ class LoginTestCase(TestCase):
         
 
 # Create your tests here.
-# class StoryIDTestCase(TestCase):
-	#tests a randomized story ID
-	#def test_storyid(self):
-	   # randID = random.randint(0,1000000)
-	   # storyID = StoryID.objects.create(storyID='randID')      
+class StoryIDTestCase(TestCase):
+    #tests a randomized story ID
+    def test_storyid(self):
+        # creates a test story ID
+	randID = random.randint(0,1000000)
+	story = self.foo = Tmas.objects.get(storyID='randID')
+        #storyID = StoryID.objects.create(storyID='randID')      
 
