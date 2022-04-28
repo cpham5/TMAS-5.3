@@ -1,21 +1,24 @@
 from tmasTest.models import Tmas
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
+import random
 # from django.contrib.auth.models import StoryID
 
 # Create your tests here.
 
 #Add an object (data) to the database for testing
 class TmasTestCase(TestCase):
+    randID = 0
     def setUp(cls):
+        TmasTestCase.randID = str(random.randint(0,1000000))
         cls.foo = Tmas.objects.create(subject="story added from test", date="4/13/2022",
-                                      story="Story added from text function", storyID="01234",
+                                      story="Story added from text function", storyID=TmasTestCase.randID,
                                       user="Moe", location="UMBC", community="TMAS")
     #Test retreving data from database
     def test1(self):
         try:
             flag = 0
-            story = self.foo = Tmas.objects.get(storyID="01234")
+            story = self.foo = Tmas.objects.get(storyID=TmasTestCase.randID)
             if story.date == "4/13/2022":
                 if story.subject == "story added from test":
                     if story.story == "Story added from text function":
@@ -30,10 +33,10 @@ class TmasTestCase(TestCase):
             print("Story Addition: FAILED")
 
     def test2(self):
-        story = self.foo = Tmas.objects.get(storyID="01234")
+        story = self.foo = Tmas.objects.get(storyID=TmasTestCase.randID)
         story.delete()
         try:
-            deleted = self.foo = Tmas.objects.get(storyID="01234")
+            deleted = self.foo = Tmas.objects.get(storyID=TmasTestCase.randID)
             print("Story Removal: FAILED")
         except Tmas.DoesNotExist:
             print("Story Removal: PASSED")
@@ -62,13 +65,4 @@ class LoginTestCase(TestCase):
         logged_in = c.login(username='chris', password='ILoveCMSC447')
         self.assertTrue(logged_in)
         
-
-# Create your tests here.
-class StoryIDTestCase(TestCase):
-    #tests a randomized story ID
-    def test_storyid(self):
-        # creates a test story ID
-	randID = random.randint(0,1000000)
-	story = self.foo = Tmas.objects.get(storyID='randID')
-        #storyID = StoryID.objects.create(storyID='randID')      
 
