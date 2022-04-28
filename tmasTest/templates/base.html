@@ -89,13 +89,17 @@
 			  {% endif %}
 		  </li>
           <li class="nav-item">
+                {% if user.is_superuser %}
             <a class="nav-link" href="{% url 'adminPage' %}">Admin Console (for admins only)</a>
+                {% endif %}
 		  </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'addStory'%}">Add New Story</a>
 		  </li>
           <li class="nav-item">
+              {% if user.is_authenticated %}
             <a class="nav-link" href="#">View Your Stories (for users only)</a>
+              {% endif %}
 		  </li>
         </ul>
         <form class="d-flex">
