@@ -1,5 +1,5 @@
 Authors: Mohamed Abdelhameed, Gloria Adetobi-Folawiyo, Chris Pham, Suprina Pradhan
-Iteration 2 Release
+Iteration 3 Release
 
 Requirements to run application: (all requirements are listed on the requirements.txt file)
 - Django 4.0.4
