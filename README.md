@@ -1,9 +1,15 @@
 Authors: Mohamed Abdelhameed, Gloria Adetobi-Folawiyo, Chris Pham, Suprina Pradhan
-Iteration 2 Release
+Iteration 3 Release
 
-Requirments to run application:
+Requirements to run application: (all requirements are listed on the requirements.txt file)
 - Django 4.0.4
--Python 3.10.4
+- Python 3.10.4
+- Heroku-Django
+
+To install all requirements, run the command:
+pip install -r requirements.txt
+
+Iteration 2 release is now accessible at https://tmas530.herokuapp.com/ or tmas.world.
 
 How to run application:
 Note: You must be on the same directory of the manage.py file to successfully run the application {/TMAS-5.3}
