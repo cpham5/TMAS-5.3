@@ -19,6 +19,7 @@
         <ol>
 		
         {% for story in stories %}
+			{% if story.status == "Active" %}
 		<div class = "listStory">
 			<li style="list-style-type: none;">
 					<div class="h5" style = "font-size: 16pt; width: 250px">
@@ -52,9 +53,9 @@
 				{% endif %} 
 			</li>
 		</div>
+			{% endif %}
 		{% endfor %}
         </ol>
     </p> <br/>
-</div>
 
 {% endblock %}

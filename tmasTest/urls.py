@@ -11,7 +11,12 @@ urlpatterns = [
     path('deleteStory<int:storyID>', views.deleteStory, name='deleteStory'),
     path('adminPage/', views.adminPage, name='adminPage'),
     path('admin/', views.admin, name='admin'),
-    path('delete/', views.delete, name='delete'),
+    path('delete<int:storyID>', views.delete, name='delete'),
     path('settingsPage/', views.settingsPage, name='settingsPage'),
     path('changeSettings/', views.changeSettings, name='changeSettings'),
+    path('deleted/', views.deleted, name='deleted'),
+    path('myStories/', views.myStories, name='myStories'),
+    path('aRestore<int:storyID>', views.aRestore, name='aRestore'),
+    path('myDeleted/', views.myDeleted, name='myDeleted'),
+    path('uRestore<int:storyID>', views.uRestore, name='uRestore'),
 ]

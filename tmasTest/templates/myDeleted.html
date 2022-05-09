@@ -2,25 +2,21 @@
 
 {% block content %}
 
-   <p>
-	   <a href="{% url 'index' %}">
-        <button>Home</button>
-	   </a>
-	   <a href="{% url 'admin' %}">
-        <button>Manage Accounts</button>
-	   </a>
-    <!-- Stories removal section -->
-        <h3 style="color:darkblue;">Delete Stories:</h3>
-	   <a href="{% url 'deleted' %}">
-        <button>Manage Deleted Stories</button>
-	   </a> <br/> <br/>
+    <a href="{% url 'myStories' %}">
+        <button> &larr; Back </button>
+    </a>
 
    <p>
+    <!-- Story view section -->
+        <h3 style="color: #353a47;">Deleted Stories</h3>
+    <!-- loop stories and write to page -->
+	Below are all the stories deleted by you or the administrator: <br/>
+	<strong> Note: </strong>You cannot restore stories that have been deleted by the administrator.
         <ol>
         {% for story in stories %}
-			{% if story.status == "Active" %}
-			<form action="{% url 'delete' storyID=story.storyID %}" method="post">
-				      {% csrf_token %}
+			{% if story.status != "Active" and story.user == user.username %}
+			<form action="{% url 'uRestore' storyID=story.storyID %}" method="post">
+				{% csrf_token %}
 			<div class = "listStory">
 				<li style="list-style-type: none;">
 					<div class="h5" style = "font-size: 16pt; width: 250px">
@@ -44,14 +40,19 @@
 					<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
 						{{story.location}} | {{story.community}}
 					</div>
-
+					{% if story.status == "u_deleted" %}
        		 		<div class="col-md-2">
-            			<button type="Submit" formaction="{% url 'delete' storyID=story.storyID %}" class="btn btn-outline-dark">Delete</button>
+            			<button type="Submit" formaction="{% url 'uRestore' storyID=story.storyID %}" class="btn btn-outline-dark">Restore</button>
         			</div>
-			</li>
+					{% else %}
+					<p style="font-style: italic;">
+					You cannot restore this story because it was deleted by the administrator.
+					</p>
+					{% endif %}
+				</li>
 			</div>
 			{% endif %}
-			{% endfor %}
+		{% endfor %}
 			</form>
         </ol>
     </p> <br/>
