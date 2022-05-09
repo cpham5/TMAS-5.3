@@ -9,6 +9,7 @@ class Tmas(models.Model):
     user = models.TextField()
     storyID = models.TextField()
     location = models.TextField()
+    status = models.TextField()
 
 # Create your models here.
 
