@@ -1,6 +1,12 @@
 from django.db import models
 
 #Create story model for storing storyobjects
+class storyLink(models.Model):
+    title = models.TextField()
+
+    def __str__(self):
+        return self.title
+
 class Tmas(models.Model):
     subject = models.TextField()
     date = models.TextField()
@@ -10,9 +16,7 @@ class Tmas(models.Model):
     storyID = models.TextField()
     location = models.TextField()
     status = models.TextField()
-
-class storyLink(models.Model):
-    title = models.TextField()
+    links = models.ManyToManyField(storyLink)
 
 class userQueue(models.Model):
     storyID = models.TextField()

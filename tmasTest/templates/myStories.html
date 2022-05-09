@@ -2,59 +2,73 @@
 
 {% block content %}
 
-	<a href="{% url 'index' %}">
-		<button>Home</button>
-	</a>
+<a href="{% url 'index' %}">
+	<button>Home</button>
+</a>
 
-	<a href="{% url 'myDeleted' %}">
-		<button>My Deleted Stories</button>
-	</a> <br/> <br/>
+<a href="{% url 'myDeleted' %}">
+	<button>My Deleted Stories</button>
+</a> <br /> <br />
 
-    <p>
-    <!-- Story view section -->
-        <h3 style="color: #353a47;">View Stories</h3>
-    <!-- loop stories and write to page -->
-	Below are all the stories you created:
-        <ol>
-        {% for story in stories %}
-			{% if story.user == user.username and story.status == "Active" %}
-		<div class = "listStory">
-			<li style="list-style-type: none;">
-					<div class="h5" style = "font-size: 16pt; width: 250px">
-					{{story.user}}
-					</div>
+<p>
+	<!-- Story view section -->
+<h3 style="color: #353a47;">View Stories</h3>
+<!-- loop stories and write to page -->
+Below are all the stories you created:
+<ol>
+	{% for story in stories %}
+	{% if story.user == user.username and story.status == "Active" %}
+	<div class="listStory">
+		<li style="list-style-type: none;">
+			<div class="h5" style="font-size: 16pt; width: 250px">
+				{{story.user}}
+			</div>
 
-					<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
-						{{story.date}}
-					</div>
+			<div style="font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+				{{story.date}}
+			</div>
 
-					<div style = "margin-top: 20px; margin-bottom: 3px;">
-						{{story.subject}}
-					</div>
+			<div style="margin-top: 20px; margin-bottom: 3px;">
+				{{story.subject}}
+			</div>
 
-					<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
-						<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
-						{{story.story}}
-						</div>
-					</div>
+			<div style="background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+				<div style="margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+					{{story.story}}
+				</div>
+			</div>
 
-					<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
-						{{story.location}} | {{story.community}}
-					</div>
+			<div style="font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
+				{{story.location}} | {{story.community}}
+			</div>
 
-					{% if user.is_authenticated and story.user == user.username %}
-						<div>
-							<a href = "{% url 'edit' storyID=story.storyID %}"> Edit Story </a>
-						</div>
-				{% else %}
+			<div class="row g-2">
+				<div class="col-md-2">
+					<a href="{% url 'edit' storyID=story.storyID %}"><button type="button"
+							class="btn btn-outline-dark">Edit Story</button></a>
+				</div>
+				<div class="col-md-2">
+					<a href="{% url 'linkPage' storyID=story.storyID %}"><button type="button"
+							class="btn btn-outline-dark">Add Link</button></a>
+				</div>
+				<div class="col-md-2">
+					<a href="{% url 'removeLinkPage' storyID=story.storyID %}"><button type="button"
+							class="btn btn-outline-dark">Remove Link</button></a>
+				</div>
+			</div>
+		</li>
+	</div>
 
-				{% endif %}
-			</li>
-		</div>
-			{% endif %}
-		{% endfor %}
-        </ol>
-    </p> <br/>
+	<div>
+		{{ story.links.all|join:", " }}
+	</div>
+
+	{% endif %}
+	{% endfor %}
+</ol>
+</p> <br />
+
+
+
 
 {% endblock %}
-

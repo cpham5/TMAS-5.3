@@ -168,5 +168,37 @@ def linkPage(request, storyID):
     # render template and send story to edit template
     return render(request, 'addLink.html', {'story': story, 'links':links})
 
-def addLink(request):
-    return render(request, 'viewStories.html')
+def addLink(request, storyID):
+    story = Tmas.objects.get(storyID=storyID)
+    links = storyLink.objects.filter()
+    linkName = request.POST['link']
+    
+    flag = 0
+    for link in links:
+        if getattr(link, 'title')==linkName:
+            flag = 1
+            l = link
+    if flag==0:
+        l = storyLink(title=linkName)
+    l.save()
+    story.links.add(l)
+    story.save()
+    return HttpResponseRedirect(reverse('myStories'))
+
+def removeLinkPage(request, storyID):
+
+    # get story with the requested storyID to edit
+    story = Tmas.objects.get(storyID=storyID)
+    links = story.links.all()
+    
+    # render template and send story to edit template
+    return render(request, 'removeLink.html', {'story': story, 'links':links})
+
+def removeLink(request, storyID):
+    story = Tmas.objects.get(storyID=storyID)
+    linkName = request.POST['link']
+    link = storyLink.objects.get(title=linkName)
+    print(linkName)
+    story.links.remove(link)
+    story.save()
+    return HttpResponseRedirect(reverse('myStories'))
