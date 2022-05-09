@@ -9,6 +9,7 @@ class Tmas(models.Model):
     user = models.TextField()
     storyID = models.TextField()
     location = models.TextField()
+    status = models.TextField()
 
 class storyLink(models.Model):
     title = models.TextField()

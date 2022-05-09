@@ -10,6 +10,11 @@
 <h3 style="color: rgba(53, 58, 71);" class="display-6">Edit Story</h3>
 </div>
 
+	<a href="{% url 'index' %}">
+        <button> &larr; Back (Home) </button>
+    </a>
+	<br/><br/>
+
 <div class="formCss">
     <form action="{% url 'editReplace' storyID=story.storyID %}" method="post" class = "row g-3">
         {% csrf_token %}
@@ -62,19 +67,15 @@
 		</div>
 		
 		<div class="col-md-2">
-			<button type="Submit" class="btn btn-outline-light">Edit Story<br/>
+			<button type="Submit" class="btn btn-outline-light">Edit Story </button> <br/>
 		</div>
         {% if user.is_authenticated and story.user == user.username or user.is_superuser%}
         <div class="col-md-2">
             <button type="Submit" formaction="{% url 'deleteStory' storyID=story.storyID %}" class="btn btn-outline-light">Delete</button>
         </div> 
         {%endif%}
+		</div>
     </form>
+	</div>
 </div>
-</div>
-
-
-    
-
-
 {% endblock %}

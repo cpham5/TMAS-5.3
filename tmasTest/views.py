@@ -39,8 +39,9 @@ def add(request):
         user = "guest user"
     location = request.POST['location']
     community = request.POST['community']
+    status = "Active"
     story = Tmas(subject=subject, date=date, story=story, storyID=storyID, user=user, location=location,
-                 community=community)
+                 community=community, status=status)
     story.save()
     return HttpResponseRedirect(reverse('index'))
     
@@ -74,8 +75,9 @@ def editReplace(request, storyID):
     location = request.POST['location']
     community = request.POST['community']
     user = request.user.get_username()
+    status = "Active"
     newStory = Tmas(subject=subject, date=date, story=story, storyID=storyID, user=user, location=location,
-                 community=community)
+                 community=community, status=status)
     newStory.save()
     return HttpResponseRedirect(reverse('index'))
 
@@ -83,7 +85,8 @@ def deleteStory(request, storyID):
     # get story with the requested storyID
     story = Tmas.objects.get(storyID=storyID)
     #deletes story
-    story.delete()
+    story.status = "u_deleted"
+    story.save()
     return HttpResponseRedirect(reverse('index'))
     
 def adminPage(request):
@@ -98,14 +101,10 @@ def admin(request):
     return render(request, "admin.html")
 
 
-def delete(request):
-    stories = Tmas.objects.filter()
-    context = {
-        'stories': stories,
-    }
-    storyD = request.POST['storyD']
-    deleted = Tmas.objects.get(storyID=storyD)
-    deleted.delete()
+def delete(request, storyID):
+    story = Tmas.objects.get(storyID=storyID)
+    story.status = "a_deleted"
+    story.save()
     return HttpResponseRedirect(reverse('adminPage'))
 
 def settingsPage(request):
@@ -126,13 +125,39 @@ def changeSettings(request):
     request.user.email = request.POST.get('newEmail', "")
     request.user.save()
     return HttpResponseRedirect(reverse('settingsPage'))
-    
-def viewStories(request):
+
+def deleted(request):
     stories = Tmas.objects.filter()
     context = {
         'stories': stories,
     }
-    return render(request, 'viewStories.html', context=context)
+    return render(request, "admin/deleted.html", context=context)
+
+def myStories(request):
+    stories = Tmas.objects.filter()
+    context = {
+        'stories': stories,
+    }
+    return render(request, "myStories.html", context=context)
+
+def aRestore(request, storyID):
+    story = Tmas.objects.get(storyID=storyID)
+    story.status = "Active"
+    story.save()
+    return HttpResponseRedirect(reverse('deleted'))
+
+def myDeleted(request):
+    stories = Tmas.objects.filter()
+    context = {
+        'stories': stories,
+    }
+    return render(request, "myDeleted.html", context=context)
+
+def uRestore(request, storyID):
+    story = Tmas.objects.get(storyID=storyID)
+    story.status = "Active"
+    story.save()
+    return HttpResponseRedirect(reverse('myDeleted'))
 
 def linkPage(request, storyID):
 
@@ -144,7 +169,4 @@ def linkPage(request, storyID):
     return render(request, 'addLink.html', {'story': story, 'links':links})
 
 def addLink(request):
-
-    
-
     return render(request, 'viewStories.html')
