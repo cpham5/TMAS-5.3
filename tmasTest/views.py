@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
-from tmasTest.models import Tmas
+from tmasTest.models import Tmas, storyLink
 
 import random
 
@@ -18,7 +18,6 @@ def add(request):
     subject = request.POST['subject']
     date = request.POST['date']
     story = request.POST['story']
-    #storyID = request.POST['storyID']
 
     # generate random, unique story id
     currentstoryID = []
@@ -128,5 +127,24 @@ def changeSettings(request):
     request.user.save()
     return HttpResponseRedirect(reverse('settingsPage'))
     
+def viewStories(request):
+    stories = Tmas.objects.filter()
+    context = {
+        'stories': stories,
+    }
+    return render(request, 'viewStories.html', context=context)
+
+def linkPage(request, storyID):
+
+    # get story with the requested storyID to edit
+    story = Tmas.objects.get(storyID=storyID)
+    links = storyLink.objects.filter()
+    
+    # render template and send story to edit template
+    return render(request, 'addLink.html', {'story': story, 'links':links})
+
+def addLink(request):
+
     
 
+    return render(request, 'viewStories.html')

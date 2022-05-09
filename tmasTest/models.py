@@ -10,7 +10,8 @@ class Tmas(models.Model):
     storyID = models.TextField()
     location = models.TextField()
 
-# Create your models here.
+class storyLink(models.Model):
+    title = models.TextField()
 
 class userQueue(models.Model):
     storyID = models.TextField()

@@ -14,4 +14,7 @@ urlpatterns = [
     path('delete/', views.delete, name='delete'),
     path('settingsPage/', views.settingsPage, name='settingsPage'),
     path('changeSettings/', views.changeSettings, name='changeSettings'),
+    path('viewStories/', views.viewStories, name='viewStories'),
+    path('linkPage<int:storyID>', views.linkPage, name='linkPage'),
+    path('addLink<int:storyID>', views.addLink, name='addLink'),
 ]
