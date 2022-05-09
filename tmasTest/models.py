@@ -4,6 +4,9 @@ from django.db import models
 class storyLink(models.Model):
     title = models.TextField()
 
+    class Meta:
+        ordering = ['title']
+
     def __str__(self):
         return self.title
 

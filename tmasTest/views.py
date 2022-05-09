@@ -9,8 +9,10 @@ import random
 
 def index(request):
     stories = Tmas.objects.filter()
+    links = storyLink.objects.filter()
     context = {
         'stories': stories,
+        'links': links,
     }
     return render(request, 'tmasTest/index.html', context=context)
 
@@ -135,8 +137,10 @@ def deleted(request):
 
 def myStories(request):
     stories = Tmas.objects.filter()
+    links = storyLink.objects.filter()
     context = {
         'stories': stories,
+        'links': links,
     }
     return render(request, "myStories.html", context=context)
 
@@ -171,22 +175,24 @@ def linkPage(request, storyID):
 def addLink(request, storyID):
     story = Tmas.objects.get(storyID=storyID)
     links = storyLink.objects.filter()
-    linkName = request.POST['link']
-    
-    flag = 0
-    for link in links:
-        if getattr(link, 'title')==linkName:
-            flag = 1
-            l = link
-    if flag==0:
-        l = storyLink(title=linkName)
+    linkName = request.POST.get('link')
+    linkSel = request.POST['linkSelect']
+
+    if (linkName!=""):
+        links = storyLink.objects.values_list('title')
+        if linkName not in links and linkName != None:
+            l = storyLink(title=linkName)
+    else:
+        for link in links:
+            if getattr(link, 'title')==linkSel:
+                l = link
     l.save()
     story.links.add(l)
     story.save()
     return HttpResponseRedirect(reverse('myStories'))
 
 def removeLinkPage(request, storyID):
-
+    
     # get story with the requested storyID to edit
     story = Tmas.objects.get(storyID=storyID)
     links = story.links.all()
@@ -198,7 +204,9 @@ def removeLink(request, storyID):
     story = Tmas.objects.get(storyID=storyID)
     linkName = request.POST['link']
     link = storyLink.objects.get(title=linkName)
-    print(linkName)
     story.links.remove(link)
+
+    if(Tmas.objects.filter(links__title=linkName).count()==0):
+        link.delete()
     story.save()
     return HttpResponseRedirect(reverse('myStories'))

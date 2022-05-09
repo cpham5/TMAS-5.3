@@ -12,26 +12,28 @@
 		<form action="{% url 'addLink' storyID=story.storyID %}" method="post" class="row g-3">
 			{% csrf_token %}
 
-			<div class="form-floating">
-				<select id="floatingSelectGrid" class="form-select" aria-label="Floating label select example"
-					name="link">
-					<option value="" selected>-----</option>
-					{% for choice in links %}
-					<option value="{{ choice }}">{{ choice }}</option>
-					{% endfor %}
-				</select>
-				<label for="floatingSelectGrid">Choose Link</label>
+			<div class="col-md-12">
+				<div class="form-floating">
+					<select id="floatingSelectGrid" class="form-select" aria-label="Floating label select example"
+						name="linkSelect">
+						<option value="" selected>-----</option>
+						{% for choice in links %}
+						<option value="{{ choice }}">{{ choice }}</option>
+						{% endfor %}
+					</select>
+					<label for="floatingSelectGrid">Choose Link</label>
+				</div>
 			</div>
 
 			<div class="col-md-12">
 				<div class="form-floating">
 					<input type="text" class="form-control" id="floatingInputGrid" placeholder="link" name="link">
-					<label for="floatingInputGrid">Specify Link</label>
+					<label for="floatingInputGrid">Type Link</label>
 				</div>
 			</div>
 
 			<div class="col-md-2">
-				<button type="Submit" class="btn btn-outline-light">Add Link<br />
+				<button type="Submit" class="btn btn-outline-light">Add Link</button><br />
 			</div>
 
 			<div class="col-md-2">
