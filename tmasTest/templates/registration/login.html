@@ -3,29 +3,32 @@
 
 {% block content %}
 
-<h1 style="color:darkblue;">Login</h1>
+<div class="container-fluid">
 
-<!-- form for logging in-->
-<div style="background-color: #FF7A59; padding: 25px; margin: 0px 0px 5% 0px; border-radius: 12px 12px 12px 12px; box-shadow: 6px 12px 1px purple;">
-  <form method="post" style="background-color:#FF7A59">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log In</button>
-  </form>
+	<div>
+		<h3 style="color: rgba(53, 58, 71);" class="display-6">Login</h3>
+	</div>
 
-<!-- Button that redirects to account creation page -->
-<a href="/accounts/signup">
-  <button>Create an account</button>
-</a>
+  <div class="formCss">
+
+    <form method="post" class = "row g-3">
+      {% csrf_token %}
+      {{ form.as_p }}
+		<div class="col-md-4">
+          <button type="Submit" class="btn btn-primary">Login<br/> </button>
+		</div>
+      <br/>
+    </form>
+<br/>
+      <a href="/accounts/signup">
+        <button class="btn btn-primary">Create an account</button>
+      </a>
 
 <!-- Button that redirects without logging in-->
-<a href="/">
-  <button>Continue as Guest</button>
-</a>
-<!-- disabled for now
-<a href="/accounts/password_reset">
-  <button>Reset Password</button>
-</a>
--->
+      <a href="/">
+        <button class="btn btn-primary">Continue as Guest</button>
+      </a>
+      </div>
+  </div>
 </div>
 {% endblock %}
