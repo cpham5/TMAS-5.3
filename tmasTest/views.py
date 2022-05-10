@@ -83,6 +83,7 @@ def editReplace(request, storyID):
     newStory.save()
     return HttpResponseRedirect(reverse('index'))
 
+# sets a story to "deleted"
 def deleteStory(request, storyID):
     # get story with the requested storyID
     story = Tmas.objects.get(storyID=storyID)
@@ -90,7 +91,8 @@ def deleteStory(request, storyID):
     story.status = "u_deleted"
     story.save()
     return HttpResponseRedirect(reverse('index'))
-    
+
+# admin page for admins to review stories
 def adminPage(request):
     stories = Tmas.objects.filter()
     context = {
@@ -98,17 +100,18 @@ def adminPage(request):
     }
     return render(request, "admin/adminPage.html", context=context)
 
-
+# admin page for admin stuff
 def admin(request):
     return render(request, "admin.html")
 
-
+#deletes a story from adminpage
 def delete(request, storyID):
     story = Tmas.objects.get(storyID=storyID)
     story.status = "a_deleted"
     story.save()
     return HttpResponseRedirect(reverse('adminPage'))
 
+# settings page for users to change their name and email
 def settingsPage(request):
     name1 = request.user.first_name
     name2 = request.user.last_name
@@ -121,6 +124,7 @@ def settingsPage(request):
     
     return render(request, "registration/settingsPage.html",context=context)
 
+# changes user's settings
 def changeSettings(request):
     request.user.first_name = request.POST.get('newName1', "")
     request.user.last_name = request.POST.get('newName2', "")
@@ -136,8 +140,11 @@ def deleted(request):
     return render(request, "admin/deleted.html", context=context)
 
 def myStories(request):
-    stories = Tmas.objects.filter()
-    links = storyLink.objects.filter()
+    stories = Tmas.objects.filter(user=request.user.get_username())
+    links = storyLink.objects.none()
+    for story in stories:
+        links |= story.links.all()
+    links = links.distinct
     context = {
         'stories': stories,
         'links': links,
@@ -163,50 +170,76 @@ def uRestore(request, storyID):
     story.save()
     return HttpResponseRedirect(reverse('myDeleted'))
 
+# page to add a link to a story
 def linkPage(request, storyID):
 
-    # get story with the requested storyID to edit
+    # get story with the requested storyID to add a link to
     story = Tmas.objects.get(storyID=storyID)
     links = storyLink.objects.filter()
     
-    # render template and send story to edit template
+    # render template and send story to add link template
     return render(request, 'addLink.html', {'story': story, 'links':links})
 
+#adds a link to the story
 def addLink(request, storyID):
     story = Tmas.objects.get(storyID=storyID)
     links = storyLink.objects.filter()
     linkName = request.POST.get('link')
     linkSel = request.POST['linkSelect']
 
+    # if the typed input is not empty
     if (linkName!=""):
+        # create new link object
         links = storyLink.objects.values_list('title')
-        if linkName not in links and linkName != None:
+        if linkName not in links:
+            if linkName == "":
+                return render(request, 'addLink.html', {'story': story, 'links':links})
             l = storyLink(title=linkName)
-    else:
+        else:
+            for link in links:
+                if getattr(link, 'title')==linkName:
+                    l = link
+    # if the selected input is not empty
+    elif(linkSel!=""):
+        #get existing link, set to l
         for link in links:
             if getattr(link, 'title')==linkSel:
                 l = link
+                
+    #if both aren't empty, refresh page
+    else:
+        return render(request, 'addLink.html', {'story': story, 'links':links})
     l.save()
     story.links.add(l)
     story.save()
     return HttpResponseRedirect(reverse('myStories'))
 
+# page to remove a link from a story
 def removeLinkPage(request, storyID):
     
-    # get story with the requested storyID to edit
+    # get story with the requested storyID to remove a link from
     story = Tmas.objects.get(storyID=storyID)
     links = story.links.all()
     
-    # render template and send story to edit template
+    # render template and send story to remove link template
     return render(request, 'removeLink.html', {'story': story, 'links':links})
 
+# removes a link from a story
 def removeLink(request, storyID):
     story = Tmas.objects.get(storyID=storyID)
     linkName = request.POST['link']
-    link = storyLink.objects.get(title=linkName)
-    story.links.remove(link)
+    # if a link is selected
+    if (linkName!=""):
+        # remove link from story
+        link = storyLink.objects.get(title=linkName)
+        story.links.remove(link)
 
-    if(Tmas.objects.filter(links__title=linkName).count()==0):
-        link.delete()
-    story.save()
-    return HttpResponseRedirect(reverse('myStories'))
+        # if all links to a story for a StoryLink are gone, delete the storyLink
+        if(Tmas.objects.filter(links__title=linkName).count()==0):
+            link.delete()
+        story.save()
+        return HttpResponseRedirect(reverse('myStories'))
+    # if a link was not selected
+    else:
+        # refresh page
+        return removeLinkPage(request, storyID)
