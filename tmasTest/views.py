@@ -59,9 +59,10 @@ def edit(request, storyID):
     
     # get story with the requested storyID to edit
     story = Tmas.objects.get(storyID=storyID)
-    
+    comms = communities.objects.filter()
+
     # render template and send story to edit template
-    return render(request, 'edit.html', {'story': story})
+    return render(request, 'edit.html', {'story': story, 'comms': comms})
     
 
 # use with form to edit and replace a story
@@ -126,7 +127,7 @@ def settingsPage(request):
         "email":email,
     }
     
-    return render(request, "registration/settingsPage.html",context=context)
+    return render(request, "registration/settingsPage.html", context=context)
 
 # changes user's settings
 def changeSettings(request):
