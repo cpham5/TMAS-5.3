@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
-from tmasTest.models import Tmas, storyLink
+from tmasTest.models import Tmas, storyLink, communities
 
 import random
 
@@ -48,8 +48,12 @@ def add(request):
     return HttpResponseRedirect(reverse('index'))
     
 def addStory(request):
+    comms = communities.objects.filter()
+    context = {
+        'comms': comms,
+    }
     # not sure if this does anything other than direct the user to the addStory.html page
-    return render(request, 'addStory.html')
+    return render(request, 'addStory.html', context=context)
     
 def edit(request, storyID):
     
@@ -243,3 +247,24 @@ def removeLink(request, storyID):
     else:
         # refresh page
         return removeLinkPage(request, storyID)
+
+def addCommunity(request):
+    comm = request.POST['comm']
+    newCommunity = communities(comm=comm)
+    newCommunity.save()
+    return HttpResponseRedirect(reverse('manageCommunities'))
+
+def manageCommunities(request):
+    comms = communities.objects.filter()
+    context = {
+        'comms': comms,
+    }
+    return render(request, "admin/manageCommunities.html", context=context)
+
+def deleteCommunity(request, comm):
+    community = communities.objects.get(comm=comm)
+    community.delete()
+    return HttpResponseRedirect(reverse('manageCommunities'))
+
+
+

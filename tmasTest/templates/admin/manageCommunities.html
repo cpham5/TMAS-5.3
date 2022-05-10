@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+    <a href="{% url 'adminPage' %}">
+        <button> &larr; Back (Admin Console)</button>
+    </a>
+    <a href="{% url 'index' %}">
+        <button>Home</button>
+    </a>
+
+    <br />
+    <br />
+
+<div class="container-fluid">
+
+	<div>
+		<h3 style="color: rgba(53, 58, 71);" class="display-6">Add Community</h3>
+	</div>
+
+	<div class="formCss">
+
+    <form action="{% url 'addCommunity' %}" method="post" class = "row g-3">
+       {% csrf_token %}
+        <div class="col-md-12">
+			<div class="form-floating">
+				<input type="text" class="form-control" id="floatingInputGrid" name="comm">
+				<label for="floatingInputGrid">Community</label>
+			</div>
+		</div>
+
+        <div class="col-md-2">
+			<button type="Submit" class="btn btn-outline-light">Add</button> <br/>
+		</div>
+    </form>
+
+	</div>
+</div>
+
+    <p>
+        <!-- Story view section -->
+        <h3 style="color: #353a47;">Communities</h3>
+        <!-- loop stories and write to page -->
+        Below are all the available communities:
+        <ol>
+            {% for comm in comms %}
+            <form action="{% url 'deleteCommunity' comm=comm.comm %}" method="post">
+                {% csrf_token %}
+            <div class="listStory">
+                <li style="list-style-type: none;">
+                    <div class="h5" style="font-size: 16pt; width: 250px">{{ comm.comm }}</div>
+                    <div class="col-md-2">
+                        <button type="Submit" formaction="{% url 'deleteCommunity' comm=comm.comm %}"
+                                class="btn btn-outline-dark">Remove</button>
+        			</div>
+                </li>
+            </div>
+            </form>
+            {% endfor %}
+        </ol>
+    </p>
+    <br />
+{% endblock %}

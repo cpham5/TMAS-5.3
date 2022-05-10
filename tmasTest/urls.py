@@ -23,4 +23,7 @@ urlpatterns = [
     path('aRestore<int:storyID>', views.aRestore, name='aRestore'),
     path('myDeleted/', views.myDeleted, name='myDeleted'),
     path('uRestore<int:storyID>', views.uRestore, name='uRestore'),
+    path('addCommunity/', views.addCommunity, name='addCommunity'),
+    path('manageCommunities/', views.manageCommunities, name='manageCommunities'),
+    path('deleteCommunity<str:comm>', views.deleteCommunity, name='deleteCommunity'),
 ]

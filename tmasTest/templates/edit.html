@@ -36,10 +36,10 @@
 			<div class="col-md-4">
 				<div class="form-floating">
 				    <select id="floatingSelectGrid" class="form-select" aria-label="Floating label select example" name="community">
-						<option selected>{{story.community}}</option>
-						<option>College</option>
-						<option>Engineering</option>
-						<option>CMPE 447</option>
+						<option value="" selected="selected">-----</option>
+							{% for comm in comms %}
+						<option value="{{ comm }}">{{ comm }}</option>
+						{% endfor %}
 					</select>
 					<label for="floatingSelectGrid">Community</label>
 			</div>
