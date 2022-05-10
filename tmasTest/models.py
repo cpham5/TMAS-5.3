@@ -21,6 +21,15 @@ class Tmas(models.Model):
     status = models.TextField()
     links = models.ManyToManyField(storyLink)
 
+class communities(models.Model):
+    comm = models.TextField()
+
+    class Meta:
+        ordering = ['comm']
+
+    def __str__(self):
+        return self.comm
+
 class userQueue(models.Model):
     storyID = models.TextField()
     relation = models.TextField()
