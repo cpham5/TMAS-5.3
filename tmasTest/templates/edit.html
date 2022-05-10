@@ -7,13 +7,11 @@
 <div class="container-fluid">
 
 <div>
+	<a href="{% url 'index' %}">
+        <button class="btn btn-secondary"> &larr; Back (Home) </button>
+    </a>
 <h3 style="color: rgba(53, 58, 71);" class="display-6">Edit Story</h3>
 </div>
-
-	<a href="{% url 'index' %}">
-        <button> &larr; Back (Home) </button>
-    </a>
-	<br/><br/>
 
 <div class="formCss">
     <form action="{% url 'editReplace' storyID=story.storyID %}" method="post" class = "row g-3">

@@ -2,17 +2,15 @@
 
 {% block content %}
    <p>
+	   <a href="{% url 'adminPage' %}">
+        <button class="btn btn-secondary"> &larr; Back </button>
+       </a>
 	   <a href="{% url 'index' %}">
-        <button>Home</button>
-	   </a>
-	   <a href="{% url 'admin' %}">
-        <button>Manage Accounts</button>
+        <button class="btn btn-secondary">Home</button>
 	   </a>
    </p>
 
-    <a href="{% url 'adminPage' %}">
-        <button> &larr; Back </button>
-    </a>
+
 
 
     <p>
