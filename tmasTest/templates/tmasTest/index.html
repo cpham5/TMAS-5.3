@@ -22,7 +22,7 @@
 	{% for story in stories %}
 	{% for link in story.links.all %}
 	{% empty %}
-	{% if story.user == user.username and story.status == "Active" %}
+	{% if story.status == "Active" %}
 	<div class="listStory">
 		<li style="list-style-type: none;">
 			<div class="h5" style="font-size: 16pt; width: 250px">
