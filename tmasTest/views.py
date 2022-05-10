@@ -56,7 +56,6 @@ def addStory(request):
     return render(request, 'addStory.html', context=context)
     
 def edit(request, storyID):
-    
     # get story with the requested storyID to edit
     story = Tmas.objects.get(storyID=storyID)
     comms = communities.objects.filter()
