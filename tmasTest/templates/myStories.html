@@ -62,7 +62,7 @@
 			
             {% for link in links %}
                 <div class="listStory">
-                    <h4 style="color: #353a47;">{{ link }}</h4>
+                    <h4 style="color: #353a47;">Link Name: {{ link }}</h4>
                     {% for story in stories %}
 					{% if link in story.links.all %}
                         {% if story.user == user.username and story.status == "Active" %}
