@@ -3,12 +3,15 @@
 {% block content %}
 
     <a href="{% url 'myStories' %}">
-        <button> &larr; Back </button>
+        <button class="btn btn-secondary"> &larr; Back (My Stories) </button>
+    </a>
+    <a href="{% url 'index' %}">
+        <button class="btn btn-secondary">Home</button>
     </a>
 
    <p>
     <!-- Story view section -->
-        <h3 style="color: #353a47;">Deleted Stories</h3>
+        <h3 style="color: #353a47;">My Deleted Stories</h3>
     <!-- loop stories and write to page -->
 	Below are all the stories deleted by you or the administrator: <br/>
 	<strong> Note: </strong>You cannot restore stories that have been deleted by the administrator.

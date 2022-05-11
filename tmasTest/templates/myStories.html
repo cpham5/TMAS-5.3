@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
     <a href="{% url 'index' %}">
-        <button>Home</button>
+        <button class="btn btn-secondary">Home</button>
     </a>
     <a href="{% url 'myDeleted' %}">
-        <button>My Deleted Stories</button>
+        <button class="btn btn-secondary">My Deleted Stories</button>
     </a>
     <br />
     <br />
     <p>
         <!-- Story view section -->
-        <h3 style="color: #353a47;">View Stories</h3>
+        <h3 style="color: #353a47;">My Stories</h3>
         <!-- loop stories and write to page -->
         Below are all the stories you created:
         <ol>
@@ -59,10 +59,9 @@
                 {% endfor %}
             {% endfor %}
 
-			
             {% for link in links %}
-                <h4 style="color: #353a47;">{{ link }}</h4>
                 <div class="listStory">
+                    <h4 style="color: #353a47;">Link Name: {{ link }}</h4>
                     {% for story in stories %}
 					{% if link in story.links.all %}
                         {% if story.user == user.username and story.status == "Active" %}
