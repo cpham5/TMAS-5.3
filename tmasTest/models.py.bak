@@ -20,7 +20,7 @@ class Tmas(models.Model):
     location = models.TextField()
     status = models.TextField()
     links = models.ManyToManyField(storyLink)
-    storyPic = models.ImageField(upload_to='media', null=True, blank=True)
+    storyPic = models.ImageField(default='picture_placeholder.png', upload_to='media', null=True, blank=True)
 
 class communities(models.Model):
     comm = models.TextField()

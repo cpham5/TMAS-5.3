@@ -108,7 +108,6 @@
 										</div>
 									</div>
 									{% endif %}
-									
                                     <div class="row g-2">
                                         <div class="col-md-2">
                                             <a href="{% url 'edit' storyID=story.storyID %}">

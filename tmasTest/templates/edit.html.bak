@@ -66,7 +66,7 @@
 		
 		<!-- add image -->
 		<div class="input-group col-md-12">
-			<input type="file" class="form-control" id="inputGroupFile02" accept=".jpg, .png" name="storyPic" value="{{story.storyPic}}">
+			<input type="file" class="form-control" id="inputGroupFile02" accept=".jpg, .png" name="storyPic" value="{{story.storyPic.url}}">
 			<label class="input-group-text" for="inputGroupFile02">Upload</label>
 		</div>
 		

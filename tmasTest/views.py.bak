@@ -95,7 +95,7 @@ def editReplace(request, storyID):
     
     if storyPicNow == False:
         storyPic = storyPicPrev
-    else:
+    else
         storyPic = storyPicNow
     
     newStory = Tmas(subject=subject, date=date, story=story, storyID=storyID, user=user, location=location,
