@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [
     'tmas530final.herokuapp.com',
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
