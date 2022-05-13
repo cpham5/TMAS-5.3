@@ -7,12 +7,24 @@ from tmasTest.models import Tmas, storyLink, communities
 
 import random
 
+def searchCommunityAll(request):
+
+    comm = request.POST['comm']
+    stories = Tmas.objects.filter(community__contains=comm);
+    context = {
+        'stories': stories,
+        'comm': comm,
+    }
+    return render(request, 'search_communities_all.html', context=context)
+
 def index(request):
     stories = Tmas.objects.filter()
     links = storyLink.objects.filter()
+    comms = communities.objects.filter()
     context = {
         'stories': stories,
         'links': links,
+        'comms': comms,
     }
     return render(request, 'tmasTest/index.html', context=context)
 

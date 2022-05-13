@@ -11,16 +11,43 @@
 
 
 </div>
-
-	<a href="{% url 'addStory' %}">
-		<button class="btn btn-secondary">&#65291; Add Story</button>
-	</a>
+	
+	<div>
+		<a href="{% url 'addStory' %}">
+			<button class="btn btn-secondary">&#65291; Add Story</button>
+		</a>
 
 	{% if user.is_authenticated %}
-	<a href="{% url 'myStories' %}">
-		<button class="btn btn-secondary">My Stories</button>
-	</a>
+		<a href="{% url 'myStories' %}">
+			<button class="btn btn-secondary">My Stories</button>
+		</a>
 	{% endif %}
+	</div>
+	
+	<form class="row gx-4 gy-1 align-items-center" style="margin-top: 10px;" method=POST action="{% url 'searchCommunityAll'%}">
+	{% csrf_token %}
+
+	
+	<!-- Search -->
+	<div class="col-sm-3">
+		<select class="form-select form-select-sm" aria-label=".form-select-sm example" name="comm">
+			<option value="" selected="selected">Select Community</option>
+			{% for comm in comms %}
+			<option value="{{ comm }}">{{ comm }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	
+	<!--<a href="{% url 'myStories' %}">-->
+	<div class="col-sm-3">
+	<button type="Submit" class="btn btn-secondary">Search </button> <br/>
+	</div>
+	
+	</form>
+	
+	<!-- Search by community -->
+	
+	
 
 <p>
 	<!-- Story view section -->
