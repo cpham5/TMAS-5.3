@@ -297,3 +297,6 @@ def deleteCommunity(request, comm):
 
 
 
+def guidelines(request):
+
+    return render(request, 'guidelines.html')

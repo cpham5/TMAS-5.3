@@ -29,6 +29,7 @@ urlpatterns = [
     path('addCommunity/', views.addCommunity, name='addCommunity'),
     path('manageCommunities/', views.manageCommunities, name='manageCommunities'),
     path('deleteCommunity<str:comm>', views.deleteCommunity, name='deleteCommunity'),
+    path('guidelines', views.guidelines, name='guidelines'),
     path('searchCommunityAll', views.searchCommunityAll, name='searchCommunityAll'),
 ]
 

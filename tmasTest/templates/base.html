@@ -97,6 +97,12 @@
               <a class="nav-link" href="{% url 'adminPage' %}">Admin Console</a>
               {% endif %}
             </li>
+			
+			<!-- Rules and Guidelines -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'guidelines' %}">Guidelines</a>
+            </li>
+			
             <li class="nav-item">
               <!-- Login and Logout -->
               {% if user.is_authenticated %}
