@@ -1,5 +1,8 @@
 from django.urls import path
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 from . import views
 
 urlpatterns = [
@@ -11,7 +14,23 @@ urlpatterns = [
     path('deleteStory<int:storyID>', views.deleteStory, name='deleteStory'),
     path('adminPage/', views.adminPage, name='adminPage'),
     path('admin/', views.admin, name='admin'),
-    path('delete/', views.delete, name='delete'),
+    path('delete<int:storyID>', views.delete, name='delete'),
     path('settingsPage/', views.settingsPage, name='settingsPage'),
     path('changeSettings/', views.changeSettings, name='changeSettings'),
+    path('linkPage<int:storyID>', views.linkPage, name='linkPage'),
+    path('addLink<int:storyID>', views.addLink, name='addLink'),
+    path('removeLinkPage<int:storyID>', views.removeLinkPage, name='removeLinkPage'),
+    path('removeLink<int:storyID>', views.removeLink, name='removeLink'),
+    path('deleted/', views.deleted, name='deleted'),
+    path('myStories/', views.myStories, name='myStories'),
+    path('aRestore<int:storyID>', views.aRestore, name='aRestore'),
+    path('myDeleted/', views.myDeleted, name='myDeleted'),
+    path('uRestore<int:storyID>', views.uRestore, name='uRestore'),
+    path('addCommunity/', views.addCommunity, name='addCommunity'),
+    path('manageCommunities/', views.manageCommunities, name='manageCommunities'),
+    path('deleteCommunity<str:comm>', views.deleteCommunity, name='deleteCommunity'),
+    path('guidelines', views.guidelines, name='guidelines'),
+    path('searchCommunityAll', views.searchCommunityAll, name='searchCommunityAll'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

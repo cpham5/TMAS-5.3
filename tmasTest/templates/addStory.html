@@ -6,14 +6,18 @@
 
 <div class="container-fluid">
 
-	<div>
+	<a href="{% url 'index' %}">
+		<button class="btn btn-secondary"> &larr; Back </button>
+    </a>
+
+	<div style = "padding-top: 10px; padding-bottom: 10px; padding-left: 3px;">
 		<h3 style="color: rgba(53, 58, 71);" class="display-6">Add Story</h3>
 	</div>
 
     <!-- Form for adding story -->
 	<div class="formCss">
 
-    <form action="{% url 'add' %}" method="post" class = "row g-3">
+    <form action="{% url 'add' %}" method="post" class = "row g-3" enctype="multipart/form-data">
         {% csrf_token %}
 
 		<div class="row g-2">
@@ -34,10 +38,10 @@
 			<div class="col-md-4">
 				<div class="form-floating">
 				    <select id="floatingSelectGrid" class="form-select" aria-label="Floating label select example" name="community">
-						<option selected>...<option>
-						<option>College</option>
-						<option>Engineering</option>
-						<option>CMPE 447</option>
+						<option value="" selected="selected">-----</option>
+							{% for comm in comms %}
+						<option value="{{ comm }}">{{ comm }}</option>
+						{% endfor %}
 					</select>
 					<label for="floatingSelectGrid">Community</label>
 			</div>
@@ -57,11 +61,18 @@
 			</div>
 		</div>
 		
+		<!-- add image -->
+		<div class="input-group col-md-12">
+			<input type="file" class="form-control" id="inputGroupFile02" accept=".jpg, .png" name="storyPic">
+			<label class="input-group-text" for="inputGroupFile02">Upload</label>
+		</div>
+		
 		<div class="col-md-2">
-			<button type="Submit" class="btn btn-outline-light">Add Story<br/>
+			<button type="Submit" class="btn btn-outline-light">Add Story</button> <br/>
 		</div>
 		</div>
     </form>
 
+	</div>
 </div>
 {% endblock %}

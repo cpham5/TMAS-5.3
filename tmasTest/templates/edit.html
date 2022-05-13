@@ -7,11 +7,14 @@
 <div class="container-fluid">
 
 <div>
+	<a href="{% url 'index' %}">
+        <button class="btn btn-secondary"> &larr; Back (Home) </button>
+    </a>
 <h3 style="color: rgba(53, 58, 71);" class="display-6">Edit Story</h3>
 </div>
 
 <div class="formCss">
-    <form action="{% url 'editReplace' storyID=story.storyID %}" method="post" class = "row g-3">
+    <form action="{% url 'editReplace' storyID=story.storyID %}" method="post" class = "row g-3" enctype="multipart/form-data">
         {% csrf_token %}
 		<div class="row g-2">
 			<div class="col-md-2">
@@ -31,10 +34,10 @@
 			<div class="col-md-4">
 				<div class="form-floating">
 				    <select id="floatingSelectGrid" class="form-select" aria-label="Floating label select example" name="community">
-						<option selected>{{story.community}}</option>
-						<option>College</option>
-						<option>Engineering</option>
-						<option>CMPE 447</option>
+						<option value="" selected="selected">-----</option>
+							{% for comm in comms %}
+						<option value="{{ comm }}">{{ comm }}</option>
+						{% endfor %}
 					</select>
 					<label for="floatingSelectGrid">Community</label>
 			</div>
@@ -61,20 +64,22 @@
 			</div>
 		</div>
 		
+		<!-- add image -->
+		<div class="input-group col-md-12">
+			<input type="file" class="form-control" id="inputGroupFile02" accept=".jpg, .png" name="storyPic" value="{{story.storyPic}}">
+			<label class="input-group-text" for="inputGroupFile02">Upload</label>
+		</div>
+		
 		<div class="col-md-2">
-			<button type="Submit" class="btn btn-outline-light">Edit Story<br/>
+			<button type="Submit" class="btn btn-outline-light">Edit Story </button> <br/>
 		</div>
         {% if user.is_authenticated and story.user == user.username or user.is_superuser%}
         <div class="col-md-2">
             <button type="Submit" formaction="{% url 'deleteStory' storyID=story.storyID %}" class="btn btn-outline-light">Delete</button>
         </div> 
         {%endif%}
+		</div>
     </form>
+	</div>
 </div>
-</div>
-
-
-    
-
-
 {% endblock %}

@@ -1,60 +1,171 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<div class="container">
-    <!-- greets user with their username if they are logged in; otherwise greet them with guest-->
-    {% if user.is_authenticated %}
-        <label>Welcome {{user.username}}!</label><br/>
-    {% else %}
-         <label>User guest</label><br/>
-    {% endif %}
+<div class="container">
+	<!-- greets user with their username if they are logged in; otherwise greet them with guest-->
+	{% if user.is_authenticated %}
+	<h2>Welcome {{user.username}}!</h2><br />
+	{% else %}
+	<h2>Welcome guest!</h2><br />
+	{% endif %}
 
 
-	</div>
-    <p>
-    <!-- Story view section -->
-        <h3 style="color: #353a47;">View Stories</h3>
-    <!-- loop stories and write to page -->
+</div>
 	
-        <ol>
-		
-        {% for story in stories %}
-		<div class = "listStory">
+	<div>
+		<a href="{% url 'addStory' %}">
+			<button class="btn btn-secondary">&#65291; Add Story</button>
+		</a>
+
+	{% if user.is_authenticated %}
+		<a href="{% url 'myStories' %}">
+			<button class="btn btn-secondary">My Stories</button>
+		</a>
+	{% endif %}
+	</div>
+	
+	<form class="row gx-4 gy-1 align-items-center" style="margin-top: 10px;" method=POST action="{% url 'searchCommunityAll'%}">
+	{% csrf_token %}
+
+	
+	<!-- Search -->
+	<div class="col-sm-3">
+		<select class="form-select form-select-sm" aria-label=".form-select-sm example" name="comm">
+			<option value="" selected="selected">Select Community</option>
+			{% for comm in comms %}
+			<option value="{{ comm }}">{{ comm }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	
+	<!--<a href="{% url 'myStories' %}">-->
+	<div class="col-sm-3">
+	<button type="Submit" class="btn btn-secondary">Search </button> <br/>
+	</div>
+	
+	</form>
+	
+	<!-- Search by community -->
+	
+	
+
+<p>
+	<!-- Story view section -->
+<h3 style="color: #353a47;">View Stories</h3>
+<!-- loop stories and write to page -->
+
+<ol>
+
+	<h4 style="color: #353a47;">Unlinked stories</h4>
+	{% for story in stories %}
+	{% for link in story.links.all %}
+	{% empty %}
+	{% if story.status == "Active" %}
+	<div class="listStory">
+		<li style="list-style-type: none;">
+			
+			<div class="h5" style="font-size: 16pt; width: 250px">
+				{{story.user}}
+			</div>
+
+			<div style="font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+				{{story.date}}
+			</div>
+
+			<div style="margin-top: 20px; margin-bottom: 3px;">
+				{{story.subject}}
+			</div>
+
+			<div style="background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+				<div style="margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+					{{story.story}}
+				</div>
+			</div>
+
+			<div style="font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%; padding-bottom: 2%;">
+				{{story.location}} | {{story.community}}
+			</div>
+
+			{{story.storyPic.url}}
+			{% if story.storyPic.url != False %}
+			<div class="card">
+				<div class="card-body">
+					<div class="card-img-bottom">
+						<img class="card-img-bottom" src="{{story.storyPic.url}}">
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			
+			{% if user.is_authenticated and story.user == user.username %}
+			<div style = "padding-top: 2%;">
+				<a href="{% url 'edit' storyID=story.storyID %}"> Edit Story </a>
+			</div>
+			{% else %}
+
+			{% endif %}
+		</li>
+	</div>
+	{% endif %}
+	{% endfor %}
+	{% endfor %}
+
+
+	{% for link in links %}
+	<div class="listStory">
+		<h4 style="color: #353a47;">Link Name: {{link}}</h4>
+		{% for story in stories %}
+		{% if link in story.links.all %}
+		{% if story.status == "Active" %}
+		<div class="listStory">
 			<li style="list-style-type: none;">
-					<div class="h5" style = "font-size: 16pt; width: 250px">
+				<div class="h5" style="font-size: 16pt; width: 250px">
 					{{story.user}}
-					</div>
-				
-					<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
-						{{story.date}}
-					</div>
-				
-					<div style = "margin-top: 20px; margin-bottom: 3px;">
-						{{story.subject}}
-					</div>
-				
-					<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
-						<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+				</div>
+
+				<div style="font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+					{{story.date}}
+				</div>
+
+				<div style="margin-top: 20px; margin-bottom: 3px;">
+					{{story.subject}}
+				</div>
+
+				<div style="background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+					<div style="margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
 						{{story.story}}
+					</div>
+				</div>
+
+				<div style="font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%; padding-bottom: 2%;">
+					{{story.location}} | {{story.community}}
+				</div>
+
+				{% if story.storyPic.url != '/media/False' %}
+				<div class="card">
+					<div class="card-body">
+						<div class="card-img-bottom">
+							<img class="card-img-bottom" src="{{story.storyPic.url}}">
 						</div>
 					</div>
-				
-					<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
-						{{story.location}} | {{story.community}}
-					</div>
-				
-					{% if user.is_authenticated and story.user == user.username %}
-						<div>
-							<a href = "{% url 'edit' storyID=story.storyID %}"> Edit Story </a>	
-						</div>
+				</div>
+				{% endif %}
+			
+				{% if user.is_authenticated and story.user == user.username %}
+				<div style = "padding-top: 2%;">
+					<a href="{% url 'edit' storyID=story.storyID %}"> Edit Story </a>
+				</div>
 				{% else %}
-		
-				{% endif %} 
+
+				{% endif %}
 			</li>
 		</div>
+		{% endif %}
+		{% endif %}
 		{% endfor %}
-        </ol>
-    </p> <br/>
-</div>
+	</div>
+	{% endfor %}
+</ol>
+</p> <br />
 
 {% endblock %}
