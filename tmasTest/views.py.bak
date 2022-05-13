@@ -10,7 +10,7 @@ import random
 def searchCommunityAll(request):
 
     comm = request.POST['comm']
-    stories = Tmas.objects.filter(community__contains=comm);
+    stories = Tmas.objects.filter();
     context = {
         'stories': stories,
         'comm': comm,

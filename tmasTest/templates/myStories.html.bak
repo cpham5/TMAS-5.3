@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+    <a href="{% url 'index' %}">
+        <button class="btn btn-secondary">Home</button>
+    </a>
+    <a href="{% url 'myDeleted' %}">
+        <button class="btn btn-secondary">My Deleted Stories</button>
+    </a>
+    <br />
+    <br />
+    <p>
+        <!-- Story view section -->
+        <h3 style="color: #353a47;">My Stories</h3>
+        <!-- loop stories and write to page -->
+        Below are all the stories you created:
+        <ol>
+            <h4 style="color: #353a47;">Unlinked stories</h4>
+            {% for story in stories %}
+                {% for link in story.links.all %}
+                {% empty %}
+                    {% if story.user == user.username and story.status == "Active" %}
+                        <div class="listStory">
+                            <li style="list-style-type: none;">
+                                <div class="h5" style="font-size: 16pt; width: 250px">{{ story.user }}</div>
+                                <div style="font-size: 9pt;
+                                            position: float;
+                                            padding-left: 90%;
+                                            margin-top: -25px;">{{ story.date }}</div>
+                                <div style="margin-top: 20px; margin-bottom: 3px;">{{ story.subject }}</div>
+                                <div style="background-color: white;
+                                            height: 150px;
+                                            border-radius: 7px 7px 7px 7px;">
+                                    <div style="margin-top: 5px;
+                                                margin-bottom: 50px;
+                                                padding-left: 10px;
+                                                padding-top: 5px;">{{ story.story }}</div>
+                                </div>
+                                <div style="font-size: 9pt;
+                                            position: float;
+                                            padding-left: 90%;
+                                            padding-top: 2%;">
+                                    {{ story.location }} | {{ story.community }}
+                                </div>
+								
+								{% if story.storyPic.url != '/media/False' %}
+								<div class="card">
+									<div class="card-body">
+										<div class="card-img-bottom">
+											<img class="card-img-bottom" src="{{story.storyPic.url}}">
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								
+                                <div class="row g-2">
+                                    <div class="col-md-2">
+                                        <a href="{% url 'edit' storyID=story.storyID %}">
+                                            <button type="button" class="btn btn-outline-dark">Edit Story</button>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="{% url 'linkPage' storyID=story.storyID %}">
+                                            <button type="button" class="btn btn-outline-dark">Add Link</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            {% for link in links %}
+                <div class="listStory">
+                    <h4 style="color: #353a47;">Link Name: {{ link }}</h4>
+                    {% for story in stories %}
+					{% if link in story.links.all %}
+                        {% if story.user == user.username and story.status == "Active" %}
+                            <div class="listStory">
+                                <li style="list-style-type: none;">
+                                    <div class="h5" style="font-size: 16pt; width: 250px">{{ story.user }}</div>
+                                    <div style="font-size: 9pt;
+                                                position: float;
+                                                padding-left: 90%;
+                                                margin-top: -25px;">{{ story.date }}</div>
+                                    <div style="margin-top: 20px; margin-bottom: 3px;">{{ story.subject }}</div>
+                                    <div style="background-color: white;
+                                                height: 150px;
+                                                border-radius: 7px 7px 7px 7px;">
+                                        <div style="margin-top: 5px;
+                                                    margin-bottom: 50px;
+                                                    padding-left: 10px;
+                                                    padding-top: 5px;">{{ story.story }}</div>
+                                    </div>
+                                    <div style="font-size: 9pt;
+                                                position: float;
+                                                padding-left: 90%;
+                                                padding-top: 2%;">
+                                        {{ story.location }} | {{ story.community }}
+                                    </div>
+									
+									{% if story.storyPic.url != '/media/False' %}
+									<div class="card">
+										<div class="card-body">
+											<div class="card-img-bottom">
+												<img class="card-img-bottom" src="{{story.storyPic.url}}">
+											</div>
+										</div>
+									</div>
+									{% endif %}
+                                    <div class="row g-2">
+                                        <div class="col-md-2">
+                                            <a href="{% url 'edit' storyID=story.storyID %}">
+                                                <button type="button" class="btn btn-outline-dark">Edit Story</button>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="{% url 'linkPage' storyID=story.storyID %}">
+                                                <button type="button" class="btn btn-outline-dark">Add Link</button>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="{% url 'removeLinkPage' storyID=story.storyID %}">
+                                                <button type="button" class="btn btn-outline-dark">Remove Link</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
+							{% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </ol>
+    </p>
+    <br />
+{% endblock %}
