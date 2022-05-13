@@ -2,9 +2,11 @@
 
 {% block content %}
    <p>
+	   {% if user.is_superuser %}
 	   <a href="{% url 'adminPage' %}">
         <button class="btn btn-secondary"> &larr; Back </button>
        </a>
+	   {% endif %}
 	   <a href="{% url 'index' %}">
         <button class="btn btn-secondary">Home</button>
 	   </a>
@@ -12,7 +14,7 @@
 
 
 
-
+	{% if user.is_superuser %}
     <p>
     <!-- Story view section -->
         <h3 style="color: #353a47;">Deleted Stories</h3>
@@ -63,5 +65,9 @@
 			</form>
         </ol>
     </p> <br/>
+	{% else %}
+	You don't have access to this page.
+
+	{% endif %}
 
 {% endblock %}
