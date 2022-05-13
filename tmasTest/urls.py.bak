@@ -31,4 +31,4 @@ urlpatterns = [
     path('deleteCommunity<str:comm>', views.deleteCommunity, name='deleteCommunity'),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document.settings.MEDIA_ROOT)

@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
 
-	<a href="{% url 'index' %}">
+	<a href="{% url 'myStories' %}">
 		<button class="btn btn-secondary"> &larr; Back </button>
     </a>
 

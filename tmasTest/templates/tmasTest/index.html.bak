@@ -59,7 +59,8 @@
 				{{story.location}} | {{story.community}}
 			</div>
 
-			{% if story.storyPic.url != '/media/False' %}
+			{{story.storyPic.url}}
+			{% if story.storyPic.url != False %}
 			<div class="card">
 				<div class="card-body">
 					<div class="card-img-bottom">
