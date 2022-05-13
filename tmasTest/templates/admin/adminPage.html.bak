@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+   <p>
+	   <a href="{% url 'index' %}">
+        <button class="btn btn-secondary">Home</button>
+	   </a>
+	   <a href="{% url 'admin' %}">
+        <button class="btn btn-secondary">Manage Accounts</button>
+	   </a>
+	   <a href="{% url 'manageCommunities' %}">
+        <button class="btn btn-secondary">Manage Communities</button>
+	   </a>
+	   <a href="{% url 'deleted' %}">
+        <button class="btn btn-secondary"> Manage Deleted Stories</button>
+	   </a>
+    <!-- Stories removal section -->
+        <h3 style="color:darkblue;">Live Stories:</h3>
+
+   <p>
+        <ol>
+        {% for story in stories %}
+			{% if story.status == "Active" %}
+			<form action="{% url 'delete' storyID=story.storyID %}" method="post">
+				      {% csrf_token %}
+			<div class = "listStory">
+				<li style="list-style-type: none;">
+					<div class="h5" style = "font-size: 16pt; width: 250px">
+					{{story.user}}
+					</div>
+
+					<div style = "font-size: 9pt; position: float; padding-left: 90%; margin-top: -25px;">
+						{{story.date}}
+					</div>
+
+					<div style = "margin-top: 20px; margin-bottom: 3px;">
+						{{story.subject}}
+					</div>
+
+					<div style = "background-color: white; height: 150px; border-radius: 7px 7px 7px 7px;">
+						<div style = "margin-top: 5px; margin-bottom: 50px; padding-left: 10px; padding-top: 5px;">
+						{{story.story}}
+						</div>
+					</div>
+
+					<div style = "font-size: 9pt; position: float; padding-left: 90%; padding-top: 2%;">
+						{{story.location}} | {{story.community}}
+					</div>
+
+       		 		<div class="col-md-2">
+            			<button type="Submit" formaction="{% url 'delete' storyID=story.storyID %}" class="btn btn-outline-dark">Delete</button>
+        			</div>
+			</li>
+			</div>
+			{% endif %}
+			{% endfor %}
+			</form>
+        </ol>
+    </p> <br/>
+
+{% endblock %}

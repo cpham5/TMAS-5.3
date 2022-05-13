@@ -29,7 +29,6 @@ urlpatterns = [
     path('addCommunity/', views.addCommunity, name='addCommunity'),
     path('manageCommunities/', views.manageCommunities, name='manageCommunities'),
     path('deleteCommunity<str:comm>', views.deleteCommunity, name='deleteCommunity'),
-    path('guidelines', views.guidelines, name='guidelines'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

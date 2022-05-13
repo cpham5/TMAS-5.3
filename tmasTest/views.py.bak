@@ -287,4 +287,4 @@ def deleteCommunity(request, comm):
 
 def guidelines(request):
 
-    return render(request, 'guidelines.html')
+    return render(request, 'tmasTest/index.html')
