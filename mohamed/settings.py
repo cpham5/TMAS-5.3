@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'tmas530final.herokuapp.com',
+    '127.0.0.1',
 ]
 
 # Application definition

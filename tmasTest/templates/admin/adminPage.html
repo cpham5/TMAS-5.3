@@ -6,6 +6,9 @@
 	   <a href="{% url 'index' %}">
         <button class="btn btn-secondary">Home</button>
 	   </a>
+   </p>
+	<p>
+		{% if user.is_superuser %}
 	   <a href="{% url 'admin' %}">
         <button class="btn btn-secondary">Manage Accounts</button>
 	   </a>
@@ -17,6 +20,7 @@
 	   </a>
     <!-- Stories removal section -->
         <h3 style="color:darkblue;">Live Stories:</h3>
+	</p>
 
    <p>
         <ol>
@@ -67,5 +71,11 @@
 			</form>
         </ol>
     </p> <br/>
+
+
+{% else %}
+You don't have access to this page.
+
+{% endif %}
 
 {% endblock %}
