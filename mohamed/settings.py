@@ -32,6 +32,9 @@ ALLOWED_HOSTS = [
     'tmas.world',
 ]
 
+CSRF_TRUSTED_ORIGINS = ['https://*.tmas530final.herokuapp.com','https://*.127.0.0.1',
+                        'https://*.tmas.azurewebsites.net','https://*.tmas.world']
+
 # Application definition
 
 INSTALLED_APPS = [
